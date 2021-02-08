@@ -10,17 +10,16 @@ def owner_infomation_artifact():
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\Preferences\com.apple.homesharing.plist
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\Preferences\com.apple.purplebuddy.plist
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\SystemPreferencesDomain\SystemConfiguration\preferences.plist
-    
-    homesharing_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Preferences/com.apple.homesharing.plist")
-    purplebuddy_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Preferences/com.apple.purplebuddy.plist")
-    systemConfiguration_path = pathlib.Path(os.getcwd() + "/extract_file/SystemPreferencesDomain/SystemConfiguration/preferences.plist")
-    homesharing = plistlib.readPlist(str(homesharing_path))
-    purplebuddy = plistlib.readPlist(str(purplebuddy_path))
-    systemConfiguration_preferences = plistlib.readPlist(str(systemConfiguration_path))
+
+    homesharing = plistlib.readPlist(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Preferences/com.apple.homesharing.plist")))
+    purplebuddy = plistlib.readPlist(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Preferences/com.apple.purplebuddy.plist")))
+    systemConfiguration_preferences = plistlib.readPlist(str(pathlib.Path(os.getcwd() + "/extract_file/SystemPreferencesDomain/SystemConfiguration/preferences.plist")))
     device_name = systemConfiguration_preferences["System"]["System"]["HostName"]
     apple_id = homesharing["homeSharingAppleID"]
     install_date = purplebuddy["SetupLastExit"]
     install_type = purplebuddy["SetupState"]
+
+    owner_information = [device_name, apple_id, install_date, install_type]
 
     print("Device Name : ", device_name)
     print("Apple ID : ", apple_id)
@@ -32,8 +31,7 @@ def calendar_event_artifact():
     # Calendar Event Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\Calendar\Calendar.sqlitedb
 
-    calendar_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Calendar")
-    calendar_location = pathlib.Path(str(calendar_path) + "\\Calendar.sqlitedb")
+    calendar_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Calendar")) + "\\Calendar.sqlitedb")
     
     conn = sqlite3.connect(calendar_location)
     cur_calendaritem = conn.cursor()
@@ -50,8 +48,7 @@ def addressbook_artifact():
     # Address Book Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\AddressBook\AddressBook.sqlitedb
 
-    addressbook_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/AddressBook")
-    addressbook_location = pathlib.Path(str(addressbook_path) + "\\AddressBook.sqlitedb")
+    addressbook_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/AddressBook")) + "\\AddressBook.sqlitedb")
     conn = sqlite3.connect(addressbook_location)
 
     cur_ABPerson = conn.cursor()
@@ -85,11 +82,11 @@ def addressbook_artifact():
     # connect_analyze_database.close()
 
 def installed_application() :
+
     # Install Application Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\FrontBoard\applicationState.db
-    installed_application_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/FrontBoard")
-    print(installed_application_path)
-    installed_application_location = pathlib.Path(str(installed_application_path) + "\\applicationState.db")
+
+    installed_application_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/FrontBoard")) + "\\applicationState.db")
     
     conn = sqlite3.connect(installed_application_location)
     cur_application_identifier_tab = conn.cursor()
