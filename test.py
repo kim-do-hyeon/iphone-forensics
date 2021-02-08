@@ -1,7 +1,7 @@
 import os
 import pathlib
 import plugin
-import develeop_plugin
+import mobile_plugin
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -56,8 +56,7 @@ while True :
     print("2. iPhone Backup File Information \n")
     print("3. iPhone Accessibility Information \n")
     print("4. Installed Application Information \n")
-    print("5. Installed Application Detail Information \n")
-    print("6. Extract File (iPhone Backup File)\n")
+    print("5. Extract File (iPhone Backup File)\n")
     print("9. Artifacts\n")
     print("0. Exit \n")
 
@@ -73,16 +72,26 @@ while True :
     elif num == 4 :     
         plugin.installed_Application(backup_file_manifest, backup_file_info)
     elif num == 5 :
-        plugin.install_Application_detail(backup_file_manifest, backup_file_info)
-    elif num == 6 :
         plugin.extract_backupfile(backup_file_location)
     elif num == 9 :
-        print("1. AddressBook")
+        print("This can only be used if extracted using this tool!!\n")
+        print("0. Owner Information\n")
+        print("1. AddressBook\n")
+        print("2. Calendar Event\n")
+        print("3. Installed Application\n")
         artifacts = int(input("Number : "))
         
-        if artifacts == 1 :
-            develeop_plugin.addressbook_artifact()
-
+        if artifacts == 0 :
+            mobile_plugin.owner_infomation_artifact()
+        elif artifacts == 1 :
+            mobile_plugin.addressbook_artifact()
+        elif artifacts == 2 :
+            mobile_plugin.calendar_event_artifact()
+        elif artifacts == 3 :
+            mobile_plugin.installed_application()
+        else : 
+            print("\nError, Wrong Number. Please Check Your Number.\n")
+            break
     elif num == 0 :
         print("Bye!")
         break

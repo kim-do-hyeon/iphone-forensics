@@ -1,4 +1,5 @@
 import plistlib
+import util
 def iphone_information(manifest, info) :
     manifest = plistlib.readPlist(manifest)
     info = plistlib.readPlist(info)
@@ -80,18 +81,16 @@ def installed_Application(manifest, info) :
         print(key)
     print("========================================================\n")
 
-def install_Application_detail(manifest, info) :
-    manifest = plistlib.readPlist(manifest)
-    info = plistlib.readPlist(info)
-    application_list = manifest["Applications"]
-    # Encoding / UnicodeEncodeError: 'cp949' codec can't encode character '\u110c' in position 192: illegal multibyte sequence
-    application_list = dictionary_encoding_utf_8(application_list)
-    for key in application_list :
-        print(key, ":", application_list[key])
+# def install_Application_detail(manifest, info) :
+#     manifest = plistlib.readPlist(manifest)
+#     info = plistlib.readPlist(info)
+#     application_list = manifest["Applications"]
+#     # Encoding / UnicodeEncodeError: 'cp949' codec can't encode character '\u110c' in position 192: illegal multibyte sequence
+#     application_list = util.dictionary_encoding_utf_8(application_list)
+#     for key in application_list :
+#         print(key, ":", application_list[key])
 
-def dictionary_encoding_utf_8(dictionary):
-    temp = {k: str(v).encode("utf-8") for k,v in dictionary.items()}
-    return temp
+
 
 def extract_backupfile(backupfile_location):
     import sqlite3
