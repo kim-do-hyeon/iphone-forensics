@@ -38,6 +38,11 @@ def calendar_event_artifact():
     cur_calendaritem.execute("SELECT summary, start_date, end_date FROM CalendarItem")
     calendaritem = cur_calendaritem.fetchall()
     calendar = []
+
+    print("========== PRINT_TYPE ==========")
+    print("'Calendar Item' , 'Start Date & Time', 'End Date & Time'")
+    print("================================")
+    
     for i in range(len(calendaritem)) :
         value = [calendaritem[i][0], util.cocoa_date_to_human_date(calendaritem[i][1]), util.cocoa_date_to_human_date(calendaritem[i][2])]
         print(value)
@@ -60,6 +65,11 @@ def addressbook_artifact():
     ABMultiValue = cur_ABMultiValue.fetchall()
 
     addressbook = []
+
+    print("========== PRINT_TYPE ==========")
+    print("'Name' , 'Value'")
+    print("================================")
+
     for i in range(len(ABPerson)):
         for j in range(len(ABPerson)):
             if ABMultiValue[i][0] == ABPerson[j][0] :
