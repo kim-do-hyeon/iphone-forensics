@@ -74,7 +74,7 @@ while True :
     elif num == 5 :
         plugin.extract_backupfile(backup_file_location)
     elif num == 9 :
-        print("This can only be used if extracted using this tool!!\n")
+        print("\nThis can only be used if extracted using this tool!!\n")
         print("0. Owner Information\n")
         print("1. AddressBook\n")
         print("2. Calendar Event\n")
