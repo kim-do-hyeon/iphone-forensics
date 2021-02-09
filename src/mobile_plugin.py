@@ -44,7 +44,7 @@ def calendar_event_artifact():
     print("================================\n")
     
     for i in range(len(calendaritem)) :
-        value = [calendaritem[i][0], util.cocoa_date_to_human_date(calendaritem[i][1]), util.cocoa_date_to_human_date(calendaritem[i][2])]
+        value = [calendaritem[i][0], src.util.cocoa_date_to_human_date(calendaritem[i][1]), src.util.cocoa_date_to_human_date(calendaritem[i][2])]
         print(value)
         calendar.append(value)
 
