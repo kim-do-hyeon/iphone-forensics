@@ -148,6 +148,7 @@ log.txt
 Manifest.db
 info.plist
 Manifest.plist
+test/
 
 #Analyzer
 *.crt
