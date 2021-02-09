@@ -19,7 +19,7 @@ import util
 
 def apple_accounts():
 
-    # Apple Note Artifact
+    # Apple Accounts Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\Accounts\Accounts3.sqlite
 
     apple_accounts_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Accounts")) + "\\Accounts3.sqlite")
