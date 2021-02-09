@@ -53,7 +53,7 @@ def apple_accounts():
 
 def sim_card():
 
-    # SIM Card Artifacts
+    # SIM Card Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\WirelessDomain\Library\Databases\CellularUsage.db
 
     sim_card_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/WirelessDomain/Library/Databases")) + "\\CellularUsage.db")
@@ -76,3 +76,39 @@ def sim_card():
     print("ICCID : ", sim_card[0])
     print("Phone Number : ", sim_card[1])
     print("Last Update Time : ", sim_card[2])
+
+def bluetooth() :
+
+    # Bluetooth Artifact
+    # C:\Users\pental\Desktop\iphone-forensics\extract_file\SysSharedContainerDomain-systemgroup.com.apple.bluetooth\Library\Preferences\com.apple.MobileBluetooth.devices.plist
+
+    bluetooth_device = plistlib.readPlist(str(pathlib.Path(os.getcwd() + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Preferences/com.apple.MobileBluetooth.devices.plist")))
+    bluetooth_device_mac_address = []
+    for i in bluetooth_device :
+        bluetooth_device_mac_address.append(i)
+    bluetooth = []
+    for i in range(len(bluetooth_device)) :
+        Mac = bluetooth_device_mac_address[i]
+        if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("Name", "NULL")) == "NULL" :
+            Name = "NULL"
+        else :
+            # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["Name"])
+            Name = bluetooth_device[str(bluetooth_device_mac_address[i])]["Name"]
+            if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("LastSeenTime", "NULL")) == "NULL" :
+                LastSeenTime = "NULL"
+            else :
+                # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["LastSeenTime"])
+                LastSeenTime = util.unix_date_to_human_date(bluetooth_device[str(bluetooth_device_mac_address[i])]["LastSeenTime"])
+                if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("DefaultName", "NULL")) == "NULL" :
+                    DefaultName = "NULL"
+                else :
+                    # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["DefaultName"])
+                    DefaultName = bluetooth_device[str(bluetooth_device_mac_address[i])]["DefaultName"]
+        bluetooth.append([Mac, Name, LastSeenTime, DefaultName])
+    
+    print("\n========== PRINT_TYPE ==========")
+    print("'MAC Address' , 'Name', 'Last Seen Time', 'Device Type'")
+    print("================================\n")
+
+    for i in bluetooth :
+        print(i)
