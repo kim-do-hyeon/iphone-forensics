@@ -112,3 +112,31 @@ def bluetooth() :
 
     for i in bluetooth :
         print(i)
+
+def bluetooth_that_have_been_shown() :
+
+    # Bluetooth Bluetooth devices that have been shown Artifact
+    # C:\Users\pental\Desktop\iphone-forensics\extract_file\SysSharedContainerDomain-systemgroup.com.apple.bluetooth\Library\Database\com.apple.MobileBluetooth.ledevices.other.db
+
+
+    bluetooth_that_have_been_shown_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Database")) + "\\com.apple.MobileBluetooth.ledevices.other.db")
+    print(bluetooth_that_have_been_shown_location)
+    conn = sqlite3.connect(bluetooth_that_have_been_shown_location)
+    cur_otherdevices = conn.cursor()
+    cur_otherdevices.execute("SELECT Uuid, Name, Address FROM OtherDevices")
+    otherdevices = cur_otherdevices.fetchall()
+
+    otherdevices = list(otherdevices)
+    for i in range(len(otherdevices)) :
+        otherdevices[i] = list(otherdevices[i])
+    
+    for i in range(len(otherdevices)) :
+        if otherdevices[i][1] == "" :
+            otherdevices[i][1] = "NULL"
+
+    print("\n========== PRINT_TYPE ==========")
+    print("'UUID' , 'Name', 'Address'")
+    print("================================\n")
+
+    for i in range(len(otherdevices)) :
+            print(otherdevices[i])

@@ -20,7 +20,7 @@ def owner_infomation_artifact():
     install_type = purplebuddy["SetupState"]
 
     owner_information = [device_name, apple_id, install_date, install_type]
-
+    print("\n")
     print("Device Name : ", device_name)
     print("Apple ID : ", apple_id)
     print("Install Date : ", install_date)

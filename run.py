@@ -83,7 +83,8 @@ while True :
         print("4. Apple Accounts\n")
         print("5. Sim Card Information\n")
         print("6. Bluetooth Device\n")
-        artifacts = int(input("Number : "))
+        print("\t 6.1 Bluetooth That Have Been Shown\n")
+        artifacts = float(input("Number : "))
         
         if artifacts == 0 :
             mobile_plugin.owner_infomation_artifact()
@@ -99,6 +100,8 @@ while True :
             os_plugin.sim_card()
         elif artifacts == 6 :
             os_plugin.bluetooth()
+        elif artifacts == 6.1 :
+            os_plugin.bluetooth_that_have_been_shown()
         else : 
             print("\nError, Wrong Number. Please Check Your Number.\n")
             break

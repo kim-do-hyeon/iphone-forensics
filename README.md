@@ -22,3 +22,4 @@ python run.py
 # Update List
 * 2021-02-07 Version 1.0
 * 2021-02-08 New Plugin (Apple Accounts)
+* 2021-02-09 New Plugin (Sim Card Information & Bluetooth Device)
