@@ -81,6 +81,7 @@ while True :
         print("2. Calendar Event\n")
         print("3. Installed Application\n")
         print("4. Apple Accounts\n")
+        print("5. Sim Card Information\n")
         artifacts = int(input("Number : "))
         
         if artifacts == 0 :
@@ -93,6 +94,8 @@ while True :
             mobile_plugin.installed_application()
         elif artifacts == 4 :
             os_plugin.apple_accounts()
+        elif artifacts == 5 :
+            os_plugin.sim_card()
         else : 
             print("\nError, Wrong Number. Please Check Your Number.\n")
             break

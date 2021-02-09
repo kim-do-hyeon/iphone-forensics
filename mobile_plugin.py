@@ -39,9 +39,9 @@ def calendar_event_artifact():
     calendaritem = cur_calendaritem.fetchall()
     calendar = []
 
-    print("========== PRINT_TYPE ==========")
+    print("\n========== PRINT_TYPE ==========")
     print("'Calendar Item' , 'Start Date & Time', 'End Date & Time'")
-    print("================================")
+    print("================================\n")
     
     for i in range(len(calendaritem)) :
         value = [calendaritem[i][0], util.cocoa_date_to_human_date(calendaritem[i][1]), util.cocoa_date_to_human_date(calendaritem[i][2])]
@@ -66,9 +66,9 @@ def addressbook_artifact():
 
     addressbook = []
 
-    print("========== PRINT_TYPE ==========")
+    print("\n========== PRINT_TYPE ==========")
     print("'Name' , 'Value'")
-    print("================================")
+    print("================================\n")
 
     for i in range(len(ABPerson)):
         for j in range(len(ABPerson)):
