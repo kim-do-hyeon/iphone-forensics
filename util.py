@@ -16,3 +16,9 @@ def cocoa_date_to_human_date(cocoatime) :
 def dictionary_encoding_utf_8(dictionary):
     temp = {k: str(v).encode("utf-8") for k,v in dictionary.items()}
     return temp
+
+def unix_date_to_human_date(unixtime) :
+    from datetime import datetime
+    ts = int(unixtime)
+    value = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    return value
