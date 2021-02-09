@@ -1,8 +1,8 @@
 import os
 import pathlib
-import init_plugin
-import mobile_plugin
-import os_plugin
+import src.init_plugin
+import src.mobile_plugin
+import src.os_plugin
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -65,15 +65,15 @@ while True :
 
     # Call Plugins
     if num == 1 :
-        init_plugin.iphone_information(backup_file_manifest, backup_file_info)
+        src.init_plugin.iphone_information(backup_file_manifest, backup_file_info)
     elif num == 2 :
-        init_plugin.iphone_backup_information(backup_file_manifest, backup_file_info)
+        src.init_plugin.iphone_backup_information(backup_file_manifest, backup_file_info)
     elif num == 3 :
-        init_plugin.iphone_accessibility_information(backup_file_manifest, backup_file_info)
+        src.init_plugin.iphone_accessibility_information(backup_file_manifest, backup_file_info)
     elif num == 4 :     
-        init_plugin.installed_Application(backup_file_manifest, backup_file_info)
+        src.init_plugin.installed_Application(backup_file_manifest, backup_file_info)
     elif num == 5 :
-        init_plugin.extract_backupfile(backup_file_location)
+        src.init_plugin.extract_backupfile(backup_file_location)
     elif num == 9 :
         print("\nThis can only be used if extracted using this tool!!\n")
         print("0. Owner Information\n")
@@ -87,21 +87,21 @@ while True :
         artifacts = float(input("Number : "))
         
         if artifacts == 0 :
-            mobile_plugin.owner_infomation_artifact()
+            src.mobile_plugin.owner_infomation_artifact()
         elif artifacts == 1 :
-            mobile_plugin.addressbook_artifact()
+            src.mobile_plugin.addressbook_artifact()
         elif artifacts == 2 :
-            mobile_plugin.calendar_event_artifact()
+            src.mobile_plugin.calendar_event_artifact()
         elif artifacts == 3 :
-            mobile_plugin.installed_application()
+            src.mobile_plugin.installed_application()
         elif artifacts == 4 :
-            os_plugin.apple_accounts()
+            src.os_plugin.apple_accounts()
         elif artifacts == 5 :
-            os_plugin.sim_card()
+            src.os_plugin.sim_card()
         elif artifacts == 6 :
-            os_plugin.bluetooth()
+            src.os_plugin.bluetooth()
         elif artifacts == 6.1 :
-            os_plugin.bluetooth_that_have_been_shown()
+            src.os_plugin.bluetooth_that_have_been_shown()
         else : 
             print("\nError, Wrong Number. Please Check Your Number.\n")
             break

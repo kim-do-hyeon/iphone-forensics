@@ -1,5 +1,5 @@
 import plistlib
-import util
+import src.util
 def iphone_information(manifest, info) :
     manifest = plistlib.readPlist(manifest)
     info = plistlib.readPlist(info)

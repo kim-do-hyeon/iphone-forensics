@@ -2,7 +2,7 @@ import os
 import pathlib
 import sqlite3
 import plistlib
-import util
+import src.util
 
 # def apple_note():
 
