@@ -3,6 +3,7 @@ import pathlib
 import src.init_plugin
 import src.mobile_plugin
 import src.os_plugin
+import src.chat
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -84,6 +85,8 @@ while True :
         print("5. Sim Card Information\n")
         print("6. Bluetooth Device\n")
         print("\t 6.1 Bluetooth That Have Been Shown\n")
+        print("7. SMS List\n")
+        
         artifacts = float(input("Number : "))
         
         if artifacts == 0 :
@@ -102,6 +105,8 @@ while True :
             src.os_plugin.bluetooth()
         elif artifacts == 6.1 :
             src.os_plugin.bluetooth_that_have_been_shown()
+        elif artifacts == 7 :
+            src.chat.sms()
         else : 
             print("\nError, Wrong Number. Please Check Your Number.\n")
             break
