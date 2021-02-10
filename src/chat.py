@@ -5,12 +5,11 @@ import sqlite3
 import src.util
 
 def sms():
-    
+
     # SMS Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\SMS\sms.db
 
     sms_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/SMS")) + "\\sms.db")
-    print(sms_location)
     conn = sqlite3.connect(sms_location)
 
     cur_message = conn.cursor()
