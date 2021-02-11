@@ -82,15 +82,6 @@ def addressbook_artifact():
                 addressbook.append(value)
     conn.close()
 
-    # connect_analyze_database = sqlite3.connect("analyze.db")
-    # cur_analyze_database = connect_analyze_database.cursor()
-    # cur_analyze_database.execute("create table Address (Name text, value text)")
-
-    # cur_analyze_database.executemany("insert into Address values (?, ?)", addressbook)
-    # connect_analyze_database.commit()
-
-    # connect_analyze_database.close()
-
 def installed_application() :
 
     # Install Application Artifact
@@ -102,10 +93,6 @@ def installed_application() :
     cur_application_identifier_tab = conn.cursor()
     cur_application_identifier_tab.execute("SELECT id, application_identifier FROM application_identifier_tab")
     application_identifier_tab = cur_application_identifier_tab.fetchall()
-
-    # cur_kvs = conn.cursor()
-    # cur_kvs.execute("SELECT id, value FROM kvs")
-    # kvs = cur_kvs.fetchall()
 
     installed_application = []
     for i in range(len(application_identifier_tab)) :

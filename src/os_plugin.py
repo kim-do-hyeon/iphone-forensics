@@ -4,19 +4,6 @@ import sqlite3
 import plistlib
 import src.util
 
-# def apple_note():
-
-#     # Apple Note Artifact
-#     # C:\Users\pental\Desktop\iphone-forensics\extract_file\AppDomainGroup-group.com.apple.notes\NoteStore.sqlite
-
-#     apple_note_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/AppDomainGroup-group.com.apple.notes")) + "\\NoteStore.sqlite")
-    
-#     conn = sqlite3.connect(apple_note_location)
-#     cur_calendaritem = conn.cursor()
-#     cur_calendaritem.execute("SELECT summary, start_date, end_date FROM CalendarItem")
-#     calendaritem = cur_calendaritem.fetchall()
-#     calendar = []
-
 def apple_accounts():
 
     # Apple Accounts Artifact
@@ -66,7 +53,7 @@ def sim_card():
     print("\n========== PRINT_TYPE ==========")
     print("'ICCID' , 'Phone Number', 'DATE'")
     print("================================\n")
-    # sim_card = list(subcriber_info)
+
     sim_card = []
     for i in range(3) :
         sim_card.append(subcriber_info[0][i])
@@ -92,17 +79,14 @@ def bluetooth() :
         if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("Name", "NULL")) == "NULL" :
             Name = "NULL"
         else :
-            # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["Name"])
             Name = bluetooth_device[str(bluetooth_device_mac_address[i])]["Name"]
             if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("LastSeenTime", "NULL")) == "NULL" :
                 LastSeenTime = "NULL"
             else :
-                # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["LastSeenTime"])
                 LastSeenTime = src.util.unix_date_to_human_date(bluetooth_device[str(bluetooth_device_mac_address[i])]["LastSeenTime"])
                 if (bluetooth_device[str(bluetooth_device_mac_address[i])].get("DefaultName", "NULL")) == "NULL" :
                     DefaultName = "NULL"
                 else :
-                    # print(bluetooth_device[str(bluetooth_device_mac_address[i])]["DefaultName"])
                     DefaultName = bluetooth_device[str(bluetooth_device_mac_address[i])]["DefaultName"]
         bluetooth.append([Mac, Name, LastSeenTime, DefaultName])
     
@@ -117,7 +101,6 @@ def bluetooth_that_have_been_shown() :
 
     # Bluetooth Bluetooth devices that have been shown Artifact
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\SysSharedContainerDomain-systemgroup.com.apple.bluetooth\Library\Database\com.apple.MobileBluetooth.ledevices.other.db
-
 
     bluetooth_that_have_been_shown_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Database")) + "\\com.apple.MobileBluetooth.ledevices.other.db")
     print(bluetooth_that_have_been_shown_location)
