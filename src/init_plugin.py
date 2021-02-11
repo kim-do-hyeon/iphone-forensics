@@ -1,5 +1,12 @@
 import plistlib
 import src.util
+log_file = open('error_log.txt', 'w', -1, 'utf-8')
+print("========== ERROR LOG ==========", file=log_file)
+def log(message):
+    message = src.util.timestamp() + ' > ' + message
+    print(message, file=log_file)
+    print(message)
+
 def iphone_information(manifest, info) :
     manifest = plistlib.readPlist(manifest)
     info = plistlib.readPlist(info)
@@ -81,11 +88,12 @@ def installed_Application(manifest, info) :
         print(key)
     print("========================================================\n")
 
-def extract_backupfile(backupfile_location):
+def extract_backupfile(backupfile_location) :
     import sqlite3
     import os
     import pathlib
     import shutil
+    log("========== Extract Start!! ==========")
     targetdir = backupfile_location
     Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
     def filepath(target):
@@ -96,7 +104,7 @@ def extract_backupfile(backupfile_location):
     cur.execute("SELECT * FROM Files")
     r = cur.fetchall()
     total_count = len(r)
-    for i in range(total_count) :
+    for i in range(20000) :
         target = r[i][0]
         if int(r[i][3]) == 1 :
             file_path = filepath(target)
@@ -118,11 +126,12 @@ def extract_backupfile(backupfile_location):
                     pass
             try :
                 print(i, " / ", total_count, " / ", target, " / ", file_path)
-                print(os.getcwd())
                 destination_path = os.getcwd() + "/extract_file/" + destination_path
                 destination_path = pathlib.Path(destination_path)
                 shutil.copyfile(file_path, os.path.join(destination_path, file_new_name))
             except :
+                log("Copy Fail > " + str(destination_path) + " > " + str(file_new_name))
                 pass
     print("Success Extract Files")
+    log("========== Success Extract Files ==========")
     conn.close()

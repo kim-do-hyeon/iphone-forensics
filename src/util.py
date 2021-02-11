@@ -32,3 +32,12 @@ def unix_date_to_human_date(unixtime) :
     ts = int(unixtime)
     value = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
     return value
+
+def timestamp():
+    import datetime
+    return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+def log(message):
+    log_file = open('log.txt', 'w', -1, 'utf-8')
+    message = timestamp() + ' > ' + message
+    print(message, file=log_file)
