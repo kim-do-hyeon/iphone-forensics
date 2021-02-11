@@ -4,6 +4,7 @@ import src.init_plugin
 import src.mobile_plugin
 import src.os_plugin
 import src.chat
+import src.extract
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -100,7 +101,7 @@ while True :
         src.init_plugin.installed_Application(backup_file_manifest, backup_file_info)
     elif num == 5 :
         log("Selected Extract Backup File")
-        src.init_plugin.extract_backupfile(backup_file_location)
+        src.extract.extract_backupfile(backup_file_location)
     elif num == 9 :
         print("\nThis can only be used if extracted using this tool!!\n")
         print("0. Owner Information\n")
