@@ -27,7 +27,12 @@ try :
 
 except :
     print("The backup file could not be found. Does it exist in a different location?")
-    quit()
+    backup_file_path = str(input("Please enter the location of the backup file : "))
+    backup_file_path = pathlib.Path(backup_file_path)
+    backup_file_list = os.listdir(backup_file_path)
+    
+    for i in range(len(backup_file_list)) :
+        print("[{0}] : ".format(i), backup_file_list[i])
 
 temp = int(input("Selected Number : "))
 
