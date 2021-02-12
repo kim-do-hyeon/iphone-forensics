@@ -25,8 +25,8 @@ def extract_backupfile(backupfile_location) :
     cur.execute("SELECT * FROM Files")
     r = cur.fetchall()
     total_count = len(r)
-    for i in range(22000) :
-        src.util.printProgress(i, 22000, 'Progress:', 'Complete', 1, 50)
+    for i in range(total_count) :
+        src.util.printProgress(i, total_count, 'Progress:', 'Complete', 1, 50)
         target = r[i][0]
         if int(r[i][3]) == 1 :
             file_path = filepath(target)
