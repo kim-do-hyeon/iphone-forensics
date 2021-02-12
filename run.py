@@ -1,10 +1,11 @@
 import os
 import pathlib
+import datetime
+import src.chat
+import src.extract
 import src.init_plugin
 import src.mobile_plugin
 import src.os_plugin
-import src.chat
-import src.extract
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -14,7 +15,9 @@ print("/___/ .___/_/ /_/\____/_/ /_/\___/  /_/  |_/_/ /_/\__,_/_/\__, / /___/\__
 print("   /_/                                                   /____/                   ")
 print("                                                                                  ")
 
-log_file = open('log.txt', 'w', -1, 'utf-8')
+log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '.txt'
+log_file = open(log_name, 'w', -1, 'utf-8')
+
 def log(message):
     message = src.util.timestamp() + ' > ' + message
     print(message, file=log_file)
@@ -48,6 +51,7 @@ except :
 
 temp = int(input("Selected Number : "))
 log("Selected Number > " + str(temp))
+
 if temp == "" :
     print("Something Wrong. Please Retry")
     log("Something Wrong. Please Retry")
@@ -88,19 +92,19 @@ while True :
     log("Selected Options > " + str(num))
     # Call Plugins
     if num == 1 :
-        log("Selected iPhone Information")
+        log("[Selected iPhone Information]")
         src.init_plugin.iphone_information(backup_file_manifest, backup_file_info)
     elif num == 2 :
-        log("Selected iPhone Backup Information")
+        log("[Selected iPhone Backup Information]")
         src.init_plugin.iphone_backup_information(backup_file_manifest, backup_file_info)
     elif num == 3 :
-        log("Selected iPhone Accessibility Information")
+        log("[Selected iPhone Accessibility Information]")
         src.init_plugin.iphone_accessibility_information(backup_file_manifest, backup_file_info)
     elif num == 4 :
-        log("Selected Installed Application")
+        log("[Selected Installed Application]")
         src.init_plugin.installed_Application(backup_file_manifest, backup_file_info)
     elif num == 5 :
-        log("Selected Extract Backup File")
+        log("[Selected Extract Backup File]")
         src.extract.extract_backupfile(backup_file_location)
     elif num == 9 :
         print("\nThis can only be used if extracted using this tool!!\n")
@@ -114,39 +118,43 @@ while True :
         print("\t 6.1 Bluetooth That Have Been Shown\n")
         print("7. SMS List\n")
         print("8. App Permission(TCC)\n")
+        print("9. Wallet Pass\n")
         
         artifacts = float(input("Number : "))
         log("Selected Artifacts > " + str(artifacts))
         if artifacts == 0 :
-            log("Select Owner Information Artifact")
+            log("[Select Owner Information Artifact]")
             src.mobile_plugin.owner_infomation_artifact()
         elif artifacts == 1 :
-            log("Selected AddressBook Artifact")
+            log("[Selected AddressBook Artifact]")
             src.mobile_plugin.addressbook_artifact()
         elif artifacts == 2 :
-            log("Selected Calendar Event Artifact")
+            log("[Selected Calendar Event Artifact]")
             src.mobile_plugin.calendar_event_artifact()
         elif artifacts == 3 :
-            log("Selected Installed Application Artifact")
+            log("[Selected Installed Application Artifact]")
             src.mobile_plugin.installed_application()
         elif artifacts == 4 :
-            log("Selected Apple Accounts Artifact")
+            log("[Selected Apple Accounts Artifact]")
             src.os_plugin.apple_accounts()
         elif artifacts == 5 :
-            log("Selected Sim Card Artifact")
+            log("[Selected Sim Card Artifact]")
             src.os_plugin.sim_card()
         elif artifacts == 6 :
-            log("Selected Bluetooth Artifact")
+            log("[Selected Bluetooth Artifact]")
             src.os_plugin.bluetooth()
         elif artifacts == 6.1 :
-            log("Selected Bluetooth That Have Been Shown Artifact")
+            log("[Selected Bluetooth That Have Been Shown Artifact]")
             src.os_plugin.bluetooth_that_have_been_shown()
         elif artifacts == 7 :
-            log("Selected SMS Artifact")
+            log("[Selected SMS Artifact]")
             src.chat.sms()
         elif artifacts == 8 :
-            log("Selected App Permission")
+            log("[Selected App Permission]")
             src.os_plugin.app_permission()
+        elif artifacts == 9 :
+            log("[Selected Wallet Pass]")
+            src.os_plugin.wallet_pass()
         else :
             print("\nError, Wrong Number. Please Check Your Number.\n")
             log("Error, Wrong Number. Please Check Your Number.")

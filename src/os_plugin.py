@@ -140,3 +140,46 @@ def app_permission():
     for i in range(len(tcc)) :
         tcc[i] = list(tcc[i])
         print(tcc[i])
+
+def wallet_pass() :
+
+    # Wallet Pass Artifact
+    # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\Passes\Cards\*.pkpass\pass.json
+
+    wallet_pass_path = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Passes/Cards")
+    wallet_pass_list = os.listdir(wallet_pass_path)
+    wallet_list = []
+
+    # Extract only .pkpass folder
+    for i in wallet_pass_list :
+        if i[28:] == ".pkpass" :
+            wallet_list.append(i)
+
+    # Each Wallet Pass Pass.json
+    wallet_list_json = []
+    for i in range(len(wallet_list)) :
+        json_location = pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/Passes/Cards/" + str(wallet_list[i]) + "/pass.json")
+        wallet_list_json.append(json_location)
+
+    # Export Json Data
+    import json
+    pass_detail = []
+    for i in range(len(wallet_list_json)) :
+        with open(wallet_list_json[i], 'r') as f:
+            json_data = json.load(f)
+
+        organizationName = json_data['organizationName']
+        description = json_data['description']
+        serialNumber = json_data['serialNumber']
+        secondaryFields_value = json_data['storeCard']["secondaryFields"]
+        secondaryFields_value_Name = secondaryFields_value[0]['value']
+        secondaryFields_value_Card_Number = secondaryFields_value[1]['value']
+
+        pass_detail.append([organizationName, description, serialNumber, secondaryFields_value_Name, secondaryFields_value_Card_Number])
+
+    print("\n========== PRINT_TYPE ==========")
+    print("'Organization Name' , 'Description', 'Serial Number', 'Name', 'Card Number'")
+    print("================================\n")
+
+    for i in pass_detail :
+        print(i)
