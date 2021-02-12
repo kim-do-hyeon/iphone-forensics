@@ -23,11 +23,11 @@ log("Start")
 # Get iPhone Backup File Path (%appdata%\Roaming\Apple Computer\MobileSynce\Backup)
 try :
     appdata_path = os.getenv('APPDATA')
-    log("Appdata Path : " + str(appdata_path))
+    log("Appdata Path > " + str(appdata_path))
     backup_file_path = pathlib.Path(os.getenv('APPDATA') + "\Apple Computer\MobileSync\Backup")
-    log("Backup File Path : " + str(backup_file_path))
+    log("Backup File Path > " + str(backup_file_path))
     backup_file_list = os.listdir(backup_file_path)
-    log("Backup File List : " + str(backup_file_list))
+    log("Backup File List > " + str(backup_file_list))
 
     print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
 
@@ -39,15 +39,15 @@ except :
     print("The backup file could not be found. Does it exist in a different location?")
     backup_file_path = str(input("Please enter the location of the backup file : "))
     backup_file_path = pathlib.Path(backup_file_path)
-    log("Custom Backup File Path : " + str(backup_file_path))
+    log("Custom Backup File Path > " + str(backup_file_path))
     backup_file_list = os.listdir(backup_file_path)
-    log("Custom Backup File List : ", + str(backup_file_list))
+    log("Custom Backup File List > ", + str(backup_file_list))
     
     for i in range(len(backup_file_list)) :
         print("[{0}] : ".format(i), backup_file_list[i])
 
 temp = int(input("Selected Number : "))
-log("Selected Number : " + str(temp))
+log("Selected Number > " + str(temp))
 if temp == "" :
     print("Something Wrong. Please Retry")
     log("Something Wrong. Please Retry")
@@ -60,16 +60,16 @@ else :
     print("\n============================================================")
     # Selected Backup File Path
     print("Selected Backup File : ", backup_file_list[temp])
-    log("Selected Backup File : " + str(backup_file_list[temp]))
+    log("Selected Backup File > " + str(backup_file_list[temp]))
     backup_file_location = pathlib.Path(str(backup_file_path) + "/" + backup_file_list[temp])
     print("Backup File Path : ", backup_file_location)
-    log("Selected Backup File Location : " + str(backup_file_location))
+    log("Selected Backup File Location > " + str(backup_file_location))
 
     # Selected Manifest & info plist
     backup_file_manifest = str(backup_file_location) + "/Manifest.plist"
     backup_file_info = str(backup_file_location) + "/info.plist"
-    log("Manifest : " + str(backup_file_manifest))
-    log("Info : " + str(backup_file_info))
+    log("Manifest > " + str(backup_file_manifest))
+    log("Info > " + str(backup_file_info))
     print("Manifest : ", backup_file_manifest)
     print("Info : ", backup_file_info)
     print("============================================================\n")
@@ -85,7 +85,7 @@ while True :
     print("0. Exit \n")
 
     num = int(input("Number : "))
-    log("Selected Options : " + str(num))
+    log("Selected Options > " + str(num))
     # Call Plugins
     if num == 1 :
         log("Selected iPhone Information")
@@ -113,9 +113,10 @@ while True :
         print("6. Bluetooth Device\n")
         print("\t 6.1 Bluetooth That Have Been Shown\n")
         print("7. SMS List\n")
+        print("8. App Permission(TCC)\n")
         
         artifacts = float(input("Number : "))
-        log("Selected Artifacts : " + str(artifacts))
+        log("Selected Artifacts > " + str(artifacts))
         if artifacts == 0 :
             log("Select Owner Information Artifact")
             src.mobile_plugin.owner_infomation_artifact()
@@ -143,6 +144,9 @@ while True :
         elif artifacts == 7 :
             log("Selected SMS Artifact")
             src.chat.sms()
+        elif artifacts == 8 :
+            log("Selected App Permission")
+            src.os_plugin.app_permission()
         else :
             print("\nError, Wrong Number. Please Check Your Number.\n")
             log("Error, Wrong Number. Please Check Your Number.")

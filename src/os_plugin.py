@@ -103,13 +103,11 @@ def bluetooth_that_have_been_shown() :
     # C:\Users\pental\Desktop\iphone-forensics\extract_file\SysSharedContainerDomain-systemgroup.com.apple.bluetooth\Library\Database\com.apple.MobileBluetooth.ledevices.other.db
 
     bluetooth_that_have_been_shown_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Database")) + "\\com.apple.MobileBluetooth.ledevices.other.db")
-    print(bluetooth_that_have_been_shown_location)
     conn = sqlite3.connect(bluetooth_that_have_been_shown_location)
     cur_otherdevices = conn.cursor()
     cur_otherdevices.execute("SELECT Uuid, Name, Address FROM OtherDevices")
     otherdevices = cur_otherdevices.fetchall()
 
-    otherdevices = list(otherdevices)
     for i in range(len(otherdevices)) :
         otherdevices[i] = list(otherdevices[i])
     
@@ -123,3 +121,22 @@ def bluetooth_that_have_been_shown() :
 
     for i in range(len(otherdevices)) :
             print(otherdevices[i])
+
+def app_permission():
+
+    # App Permision (TCC) Artifact
+    # C:\Users\pental\Desktop\iphone-forensics\extract_file\HomeDomain\Library\TCC\TCC.db
+
+    tcc_location = pathlib.Path(str(pathlib.Path(os.getcwd() + "/extract_file/HomeDomain/Library/TCC")) + "\\TCC.db")
+    conn = sqlite3.connect(tcc_location)
+    cur_tcc = conn.cursor()
+    cur_tcc.execute("SELECT service, client FROM access")
+    tcc = cur_tcc.fetchall()
+
+    print("\n========== PRINT_TYPE ==========")
+    print("'Service' , 'Client'")
+    print("================================\n")
+
+    for i in range(len(tcc)) :
+        tcc[i] = list(tcc[i])
+        print(tcc[i])
