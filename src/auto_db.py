@@ -423,7 +423,7 @@ def auto(manifest, info) :
                     Delivered_Date = 0
                 else :
                     Delivered_Date = src.util.cocoa_date_to_human_date_nano(message_items[i][5])
-                message_list.append([Phone_Number, Message, Date, Read_Date, Delivered_Date])
+                message_list.append([Phone_Number, Message, Message_Type, Date, Read_Date, Delivered_Date])
                 break
             elif message_items[i][2] == handle_items[j][0] :
                 Phone_Number = handle_items[j][1]
@@ -441,14 +441,13 @@ def auto(manifest, info) :
                 message_list.append([Phone_Number, Message, Message_Type, Date, Read_Date, Delivered_Date])
                 break
 
-    # try :
-    # conn = sqlite3.connect("analyze.db")
-    # cur = conn.cursor()
-    # cur.execute("create table SMS (Phone_Number text, Message text, Message_Type text, Date text, Read_Date text, Delivered_Date text)")
-    # cur.executemany("insert into SMS values (?, ?, ?, ?, ?, ?)", message_list)
-    # conn.commit()
-    # conn.close()
-
-    # except :
-    #     print("Something Wrong..")
-    #     quit()
+    try :
+        conn = sqlite3.connect("analyze.db")
+        cur = conn.cursor()
+        cur.execute("create table SMS (Phone_Number text, Message text, Message_Type text, Date text, Read_Date text, Delivered_Date text)")
+        cur.executemany("insert into SMS values (?, ?, ?, ?, ?, ?)", message_list)
+        conn.commit()
+        conn.close()
+    except :
+        print("Something Wrong..")
+        quit()
