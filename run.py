@@ -6,6 +6,7 @@ import src.extract
 import src.init_plugin
 import src.mobile_plugin
 import src.os_plugin
+import src.auto_db
 
 print("    ____      __                        ___                __                     ")
 print("   /  _/___  / /_  ____  ____  ___     /   |  ____  ____ _/ /_  ______  ___  _____")
@@ -159,6 +160,8 @@ while True :
             print("\nError, Wrong Number. Please Check Your Number.\n")
             log("Error, Wrong Number. Please Check Your Number.")
             break
+    elif num == 99 :
+        src.auto_db.auto(backup_file_manifest,backup_file_info)
     elif num == 0 :
         print("Bye!")
         log("Bye!")
