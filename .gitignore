@@ -141,6 +141,8 @@ cython_debug/
 settings.json
 
 extract_file/
+gui/b*
+cli/
 *.zip
 *.raw
 *.db
