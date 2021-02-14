@@ -1,8 +1,5 @@
 import src.util
-
-log_file = open('error_log.txt', 'w', -1, 'utf-8')
-print("========== ERROR LOG ==========", file=log_file)
-
+import datetime
 def log(message):
     message = src.util.timestamp() + ' > ' + message
     print(message, file=log_file)
@@ -13,6 +10,10 @@ def extract_backupfile(backupfile_location) :
     import os
     import pathlib
     import shutil
+    global log_file
+    log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error_log.txt'
+    log_file = open(log_name, 'w', -1, 'utf-8')
+    print("========== ERROR LOG ==========", file=log_file)
     print("========== Extract Start!! ==========")
     log("========== Extract Start!! ==========")
     targetdir = backupfile_location
