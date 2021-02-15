@@ -15,6 +15,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 ui = uic.loadUiType('gui/main.ui')[0] # Call ui file
 
+def log(message): # LOG
+            message = src.util.timestamp() + ' > ' + message
+            print(message, file=log_file)
+
+log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '.txt'
+log_file = open(log_name, 'w', -1, 'utf-8')
+log("Start")
+
 defualt_message = "* iPhone Forensics Tool * \n\
     \n Sourced By PENTAL \n \
     \n First, Mount the location of the iPhone backup file.\n\
@@ -54,15 +62,13 @@ class MainWindow(QMainWindow, ui):
         # ProgrssBar Setting
         self.progressBar.setValue(0)
 
-        #Log label
-        self.log_label.setText(str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')))
-
     # Path Select 
     def folder_path_select(self) :
         dialog = QFileDialog()
         folder_path = dialog.getExistingDirectory(None, "Select Folder")
         self.folder_path_line.setText(folder_path)
         self.folder_path_global(folder_path) # Global Variable Settings
+        log("Folder Path > " + str(folder_path))
 
     def auto_path_select(self) :
         appdata_path = os.getenv('APPDATA')
@@ -71,6 +77,7 @@ class MainWindow(QMainWindow, ui):
         backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
         self.folder_path_line.setText(backup_file_location)
         self.folder_path_global(backup_file_location) # Global Variable Settings
+        log("Folder Path > " + str(folder_path))
 
     def db_path_select(self) :
         global db_path
@@ -78,13 +85,15 @@ class MainWindow(QMainWindow, ui):
         db_path = QFileDialog.getOpenFileName(self, 'Select DB', filter=db_filter)
         db_path = db_path[0]
         self.db_path_line.setText(db_path)
+        log("DB Path > " + str(db_path))
 
     def extract_path_select(self) :
         global extract_path
         dialog = QFileDialog()
         extract_path = dialog.getExistingDirectory(None, "Select Folder")
         self.extract_path_line.setText(extract_path)
-
+        log("Extract Path > " + str(extract_path))
+        
     def folder_path_global(self, path) :
         global folder_path
         folder_path = str(path)
@@ -95,26 +104,27 @@ class MainWindow(QMainWindow, ui):
         global info_location
         manifest_location = str(folder_path) + "\\Manifest.plist"
         info_location = str(folder_path) + "\\Info.plist"
-
+        log("Manifest Path > " + str(manifest_location))
+        log("Info Path > " + str(info_location))
+        
     # Extract
     def extract(self) :
         try :
             try :
+                log("Extract Start")
                 self.extract_backupfile(folder_path, extract_path)
+                log("Extract Success")
             except :
+                log("Extract Fail")
                 QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         except :
+            log("Extract Fail")
             QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         
     def extract_backupfile(self, backupfile_location, extract_location) :
-        def log(message):
-            message = src.util.timestamp() + ' > ' + message
-            print(message, file=log_file)
-        global log_file
-        log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error_log.txt'
-        log_file = open(log_name, 'w', -1, 'utf-8')
-        print("========== ERROR LOG ==========", file=log_file)
-        log("========== Extract Start!! ==========")
+        log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error.txt'
+        err_log_file = open(log_name, 'w', -1, 'utf-8')
+        print("========== Extract ERROR LOG ==========", file = err_log_file)
         targetdir = backupfile_location
         Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
         def filepath(target):
@@ -152,31 +162,51 @@ class MainWindow(QMainWindow, ui):
                     destination_path = pathlib.Path(destination_path)
                     shutil.copyfile(file_path, os.path.join(destination_path, file_new_name))
                 except :
-                    log("Copy Fail > " + str(destination_path) + " > " + str(file_new_name))
+                    print("Copy Fail > " + str(destination_path) + " > " + str(file_new_name), file = err_log_file)
                     pass
             progressbar_count += progressbar_progress
         print("\n")
-        print("========== Success Extract Files ==========")
-        log("========== Success Extract Files ==========")
+        print("========== Success Extract Files ==========", file = err_log_file)
         conn.close()
         self.progressBar.setValue(100)
 
     def auto_analyze(self) :
-        gui.auto_db.auto(self, extract_path)
+        # Check DB File Exsit
+        db = extract_path + '/analyze.db'
+        if os.path.isfile(db) == True :
+            log("DB File Exsits")
+            reply = QMessageBox.question(self, 'DB Exists', 'The database file exists. Do you want it to be overwritten?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.No:
+                log("DB File Exsits > N")
+                return
+            else : 
+                log("DB File Exsits > Y > Remove DB File")
+                os.remove(db)
+        try :
+            log("Auto Analyzing Start")
+            gui.auto_db.auto(self, extract_path)
+            log("Auto Analyzing End")
+        except :
+            log("Auto Analyzing Fail")
+            QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
 
     # Information
     def iphone_information(self) :
         self.progressBar.setValue(0)
         try :
             gui.plugin.iphone_information(self, manifest_location, info_location)
+            log("Information > iPhone Information > Success")
         except :
+            log("Information > iPhone Information > Fail")
             QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
     
     def backup_information(self) :
         self.progressBar.setValue(0)
         try :
             gui.plugin.backup_information(self, manifest_location, info_location)
+            log("Information > backup Information > Success")
         except :
+            log("Information > iPhone Information > Fail")
             QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
 
     # Artifacts
@@ -184,20 +214,26 @@ class MainWindow(QMainWindow, ui):
         self.progressBar.setValue(0)
         try :
             gui.plugin.sms(self, db_path)
+            log("Artifacts > SMS > Success")
         except :
+            log("Artifacts > SMS > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
         
     def addressbook(self):
         self.progressBar.setValue(0)
         try :
             gui.plugin.addressbook(self, db_path)
+            log("Artifacts > AddressBook > Success")
         except :
+            log("Artifacts > AddressBook > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
     
     def wallet_pass(self):
         try :
             gui.plugin.wallet_pass(self, db_path)
+            log("Artifacts > Wallet Pass > Success")
         except :
+            log("Artifacts > Wallet Pass > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
 
 def main():

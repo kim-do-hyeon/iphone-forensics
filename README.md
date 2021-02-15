@@ -4,17 +4,16 @@
 
 Requires [Python 3.4](https://www.python.org/) or higher.
 
-# Run
 Ideal dependencies:
 ```bash
 pip install plistlib
+pip install pyqt
 ```
 Or
 ```bash
 pip install - r requirements.txt
 ```
-
-Run
+## Run
 ```py
 python run.py
 ```
@@ -28,3 +27,4 @@ python run.py
 * 2021-02-12 Add log function & Add extraction progress bar display & New Plugin (App Permission, Wallet Pass)
 * 2021-02-13 Add a plugin that puts the values into the db
 * 2021-02-14 Create gui version (ver 1.0)
+* 2021-02-15 Add progress gauge status & Bug fix & Add gui log function

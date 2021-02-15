@@ -247,19 +247,6 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QLabel" name="log_label">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>490</y>
-      <width>291</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
@@ -362,6 +349,19 @@
     </property>
     <property name="text">
      <string>Analyze</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="processing_label">
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>492</y>
+      <width>761</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
   </widget>

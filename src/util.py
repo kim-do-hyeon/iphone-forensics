@@ -52,3 +52,17 @@ def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, bar
     if iteration == total:
         sys.stdout.write('\n')
     sys.stdout.flush()
+
+def db_exsit() :
+    import os
+    db = os.getcwd() + '/analyze.db'
+    if os.path.isfile(db) == True :
+        print("The database file exists. Do you want it to be overwritten?")
+        check = str(input("Y / N ? : "))
+        if check == "Y" :
+            os.remove(db)
+            return True
+        elif check == "N" :
+            return False
+        else :
+            print("Input Error")
