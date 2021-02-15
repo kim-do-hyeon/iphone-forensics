@@ -100,7 +100,7 @@ class MainWindow(QMainWindow, ui):
             except :
                 QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         except :
-            QMessageBox.warning(self, 'Error', 'File Error\ngui/extract.py does exsit?', QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         
     def extract_backupfile(self, backupfile_location, extract_location) :
         def log(message):
@@ -113,7 +113,6 @@ class MainWindow(QMainWindow, ui):
         log("========== Extract Start!! ==========")
         targetdir = backupfile_location
         Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
-
         def filepath(target):
             folder = target[:2]
             return pathlib.Path(str(targetdir) + r"\\" + folder + r"\\" + target)
@@ -126,7 +125,7 @@ class MainWindow(QMainWindow, ui):
         progressbar_count = 0
         progressbar_progress = 100 / total_count
         for i in range(total_count) :
-            self.progressBar.setValue(progressbar_count)
+            self.progressBar.setValue(round(progressbar_count))
             value = (src.util.printProgress(i, total_count, 'Progress:', 'Complete', 1, 50))
             target = r[i][0]
             if int(r[i][3]) == 1 :
@@ -157,6 +156,7 @@ class MainWindow(QMainWindow, ui):
         log("========== Success Extract Files ==========")
         conn.close()
         self.progressBar.setValue(100)
+
 
     # Information
     def iphone_information(self) :
