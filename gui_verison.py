@@ -55,6 +55,13 @@ class MainWindow(QMainWindow, ui):
         self.sms_btn.clicked.connect(self.sms)
         self.addressbook_btn.clicked.connect(self.addressbook)
         self.wallet_pass_btn.clicked.connect(self.wallet_pass)
+        self.appleaccount_btn.clicked.connect(self.apple_accounts)
+        self.calendar_btn.clicked.connect(self.calendar)
+        self.bluetooth_btn.clicked.connect(self.bluetooth)
+        self.bluetooth_all_btn.clicked.connect(self.bluetooth_all)
+        self.simcard_btn.clicked.connect(self.simcard)
+        self.application_btn.clicked.connect(self.application)
+        self.tcc_btn.clicked.connect(self.tcc)
 
         # Text Result
         self.txt_result.setText(defualt_message)
@@ -234,6 +241,62 @@ class MainWindow(QMainWindow, ui):
             log("Artifacts > Wallet Pass > Success")
         except :
             log("Artifacts > Wallet Pass > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def apple_accounts(self):
+        try :
+            gui.plugin.apple_accounts(self, db_path)
+            log("Artifacts > Apple Accounts > Success")
+        except :
+            log("Artifacts > Apple Accounts > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def calendar(self):
+        try :
+            gui.plugin.calendar(self, db_path)
+            log("Artifacts > Calendar > Success")
+        except :
+            log("Artifacts > Calendar > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def bluetooth(self):
+        try :
+            gui.plugin.bluetooth(self, db_path)
+            log("Artifacts > Bluetooth > Success")
+        except :
+            log("Artifacts > Bluetooth > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def bluetooth_all(self):
+        try :
+            gui.plugin.bluetooth_all(self, db_path)
+            log("Artifacts > Bluetooth All > Success")
+        except :
+            log("Artifacts > Bluetooth All > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def simcard(self):
+        try :
+            gui.plugin.simcard(self, db_path)
+            log("Artifacts > SIM Card > Success")
+        except :
+            log("Artifacts > SIM Card > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+    
+    def application(self):
+        try :
+            gui.plugin.application(self, db_path)
+            log("Artifacts > Applicaton List > Success")
+        except :
+            log("Artifacts > Applicaton List > Fail")
+            QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+    
+    def tcc(self):
+        try :
+            gui.plugin.tcc(self, db_path)
+            log("Artifacts > App Permission (TCC) > Success")
+        except :
+            log("Artifacts > App Permission (TCC) > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
 
 def main():

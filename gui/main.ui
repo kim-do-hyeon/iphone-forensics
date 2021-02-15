@@ -294,8 +294,8 @@
      <rect>
       <x>10</x>
       <y>180</y>
-      <width>131</width>
-      <height>104</height>
+      <width>133</width>
+      <height>307</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_artifacts">
@@ -330,9 +330,58 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="appleaccount_btn">
+       <property name="text">
+        <string>Apple Account Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="addressbook_btn">
        <property name="text">
         <string>AddressBook Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="calendar_btn">
+       <property name="text">
+        <string>Calendar Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bluetooth_btn">
+       <property name="text">
+        <string>Bluetooth Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bluetooth_all_btn">
+       <property name="text">
+        <string>All Bluetooth Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="simcard_btn">
+       <property name="text">
+        <string>SIM Card Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="application_btn">
+       <property name="text">
+        <string>Application Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="tcc_btn">
+       <property name="text">
+        <string>TCC Artifact</string>
        </property>
       </widget>
      </item>

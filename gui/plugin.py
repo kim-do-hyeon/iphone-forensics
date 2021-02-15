@@ -238,3 +238,406 @@ def wallet_pass(self, db_path) :
             QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
     except :
         QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def apple_accounts(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from AppleAccounts')
+            apple_accounts_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(7)
+            self.tableWidget.setRowCount(len(apple_accounts_list))
+            for i in range(len(apple_accounts_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(7):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(apple_accounts_list)):
+                for j in range(7):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(apple_accounts_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "UserName"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Identifier"))
+            item = self.tableWidget.horizontalHeaderItem(2)
+            item.setText(_translate("iphone_forensics", "Date"))
+            item = self.tableWidget.horizontalHeaderItem(3)
+            item.setText(_translate("iphone_forensics", "Account Info"))
+            item = self.tableWidget.horizontalHeaderItem(4)
+            item.setText(_translate("iphone_forensics", "Account Type"))
+            item = self.tableWidget.horizontalHeaderItem(5)
+            item.setText(_translate("iphone_forensics", "Account Type Info"))
+            item = self.tableWidget.horizontalHeaderItem(6)
+            item.setText(_translate("iphone_forensics", "Credential type"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(apple_accounts_list)):
+                for j in range(7):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(apple_accounts_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def calendar(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from calendar')
+            calendar_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(3)
+            self.tableWidget.setRowCount(len(calendar_list))
+            for i in range(len(calendar_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(3):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(calendar_list)):
+                for j in range(3):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(calendar_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "Item"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Start Date"))
+            item = self.tableWidget.horizontalHeaderItem(2)
+            item.setText(_translate("iphone_forensics", "End Date"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(calendar_list)):
+                for j in range(3):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(calendar_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def bluetooth(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from bluetooth')
+            bluetooth_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(4)
+            self.tableWidget.setRowCount(len(bluetooth_list))
+            for i in range(len(bluetooth_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(4):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(bluetooth_list)):
+                for j in range(4):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(bluetooth_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "MAC"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Name"))
+            item = self.tableWidget.horizontalHeaderItem(2)
+            item.setText(_translate("iphone_forensics", "Last Seen Time"))
+            item = self.tableWidget.horizontalHeaderItem(3)
+            item.setText(_translate("iphone_forensics", "Default Name"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(bluetooth_list)):
+                for j in range(4):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(bluetooth_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def simcard(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from simcards')
+            simcard_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(2)
+            self.tableWidget.setRowCount(len(simcard_list))
+            for i in range(len(simcard_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(2):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(simcard_list)):
+                for j in range(2):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(simcard_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "Key"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Value"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(simcard_list)):
+                for j in range(2):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(simcard_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def bluetooth_all(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from bluetooth_that_have_been_shown')
+            bluetooth_all_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(3)
+            self.tableWidget.setRowCount(len(bluetooth_all_list))
+            for i in range(len(bluetooth_all_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(3):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(bluetooth_all_list)):
+                for j in range(3):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(bluetooth_all_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "UUID"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Name"))
+            item = self.tableWidget.horizontalHeaderItem(2)
+            item.setText(_translate("iphone_forensics", "Address"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(bluetooth_all_list)):
+                for j in range(3):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(bluetooth_all_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def application(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from installed_application')
+            application_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(2)
+            self.tableWidget.setRowCount(len(application_list))
+            for i in range(len(application_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(2):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(application_list)):
+                for j in range(2):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(application_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "Key"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Value"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(application_list)):
+                for j in range(2):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(application_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+def tcc(self, db_path) :
+    try :
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        try :
+            cur.execute('select * from TCC')
+            tcc_list = cur.fetchall()
+            _translate = QCoreApplication.translate
+            self.tableWidget.setColumnCount(2)
+            self.tableWidget.setRowCount(len(tcc_list))
+            for i in range(len(tcc_list)):
+                item = QTableWidgetItem()
+                self.tableWidget.setVerticalHeaderItem(i, item)
+            for i in range(2):
+                item = QTableWidgetItem()
+                self.tableWidget.setHorizontalHeaderItem(i, item)
+            item = QTableWidgetItem()
+            for i in range(len(tcc_list)):
+                for j in range(2):
+                    self.tableWidget.setItem(i, j, item)
+                    item = QTableWidgetItem()
+            for i in range(len(tcc_list)) :
+                item = self.tableWidget.verticalHeaderItem(i)
+                item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
+            item = self.tableWidget.horizontalHeaderItem(0)
+            item.setText(_translate("iphone_forensics", "Service"))
+            item = self.tableWidget.horizontalHeaderItem(1)
+            item.setText(_translate("iphone_forensics", "Client"))
+            __sortingEnabled = self.tableWidget.isSortingEnabled()
+            self.tableWidget.setSortingEnabled(False)
+            for i in range(len(tcc_list)):
+                for j in range(2):
+                    item = self.tableWidget.item(i, j)
+                    item.setText(_translate("iphone_forensics", str(tcc_list[i][j])))
+            self.tableWidget.setSortingEnabled(__sortingEnabled)
+            self.progressBar.setValue(100)
+        except :
+            QMessageBox.warning(self, 'Error', 'Database Error! \nIs It True Database?', QMessageBox.Ok, QMessageBox.Ok)
+    except :
+        QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
