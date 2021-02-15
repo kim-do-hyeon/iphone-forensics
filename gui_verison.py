@@ -1,8 +1,9 @@
 import os
 import sys
 import pathlib
-import plistlib
 import sqlite3
+import datetime
+import src.util
 import gui.plugin
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
@@ -49,6 +50,9 @@ class MainWindow(QMainWindow, ui):
         # ProgrssBar Setting
         self.progressBar.setValue(0)
 
+        #Log label
+        self.log_label.setText(str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')))
+
     # Path Select 
     def folder_path_select(self) :
         dialog = QFileDialog()
@@ -91,14 +95,69 @@ class MainWindow(QMainWindow, ui):
     # Extract
     def extract(self) :
         try :
-            import gui.extract
             try :
-                gui.extract.extract_backupfile(folder_path, extract_path)
+                self.extract_backupfile(folder_path, extract_path)
             except :
                 QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         except :
             QMessageBox.warning(self, 'Error', 'File Error\ngui/extract.py does exsit?', QMessageBox.Ok, QMessageBox.Ok)
-    
+        
+    def extract_backupfile(self, backupfile_location, extract_location) :
+        def log(message):
+            message = src.util.timestamp() + ' > ' + message
+            print(message, file=log_file)
+        global log_file
+        log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error_log.txt'
+        log_file = open(log_name, 'w', -1, 'utf-8')
+        print("========== ERROR LOG ==========", file=log_file)
+        log("========== Extract Start!! ==========")
+        targetdir = backupfile_location
+        Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
+
+        def filepath(target):
+            folder = target[:2]
+            return pathlib.Path(str(targetdir) + r"\\" + folder + r"\\" + target)
+
+        conn = sqlite3.connect(Manifest_location)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Files")
+        r = cur.fetchall()
+        total_count = len(r)
+        progressbar_count = 0
+        progressbar_progress = 100 / total_count
+        for i in range(total_count) :
+            self.progressBar.setValue(progressbar_count)
+            value = (src.util.printProgress(i, total_count, 'Progress:', 'Complete', 1, 50))
+            target = r[i][0]
+            if int(r[i][3]) == 1 :
+                file_path = filepath(target)
+                realativePath = pathlib.Path(r[i][2])
+                file_new_name = realativePath.parts[-1]
+                destination_path = r[i][1] + "/" + r[i][2]
+                destination_path = list(pathlib.Path(destination_path).parts)
+                destination_path.pop()
+                destination_path = '/'.join(destination_path)
+                if os.path.isdir(destination_path) : pass
+                else :
+                    try :
+                        cwd = extract_location + "/extract_file/" + destination_path
+                        cwd = pathlib.Path(cwd)
+                        os.makedirs(cwd)
+                    except : pass
+                try :
+                    destination_path = extract_location + "/extract_file/" + destination_path
+                    destination_path = pathlib.Path(destination_path)
+                    shutil.copyfile(file_path, os.path.join(destination_path, file_new_name))
+                except :
+                    log("Copy Fail > " + str(destination_path) + " > " + str(file_new_name))
+                    pass
+            progressbar_count += progressbar_progress
+        print("\n")
+        print("========== Success Extract Files ==========")
+        log("========== Success Extract Files ==========")
+        conn.close()
+        self.progressBar.setValue(100)
+
     # Information
     def iphone_information(self) :
         self.progressBar.setValue(0)
