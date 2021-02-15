@@ -98,6 +98,20 @@ def sms(self, db_path) :
             item.setText(_translate("iphone_forensics", "Delivered Date"))
             __sortingEnabled = self.tableWidget.isSortingEnabled()
             self.tableWidget.setSortingEnabled(False)
+
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+                
             for i in range(len(sms_list)):
                 for j in range(6):
                     item = self.tableWidget.item(i, j)
@@ -139,6 +153,20 @@ def addressbook(self, db_path) :
             item.setText(_translate("iphone_forensics", "Phone Number"))
             __sortingEnabled = self.tableWidget.isSortingEnabled()
             self.tableWidget.setSortingEnabled(False)
+
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
             for i in range(len(addressbook_list)):
                 for j in range(2):
                     item = self.tableWidget.item(i, j)
@@ -174,6 +202,20 @@ def wallet_pass(self, db_path) :
             for i in range(len(wallet_pass_list)) :
                 item = self.tableWidget.verticalHeaderItem(i)
                 item.setText(_translate("iphone_forensics", str(i)))
+            
+            # Column Width Auto Manage
+            header = self.tableWidget.horizontalHeader()
+            twidth = header.width()
+            width = []
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.ResizeToContents)
+                width.append(header.sectionSize(column))
+            
+            wfactor = twidth / sum(width)
+            for column in range(header.count()):
+                header.setSectionResizeMode(column, QHeaderView.Interactive)
+                header.resizeSection(column, width[column]*wfactor)
+
             item = self.tableWidget.horizontalHeaderItem(0)
             item.setText(_translate("iphone_forensics", "Organization Name"))
             item = self.tableWidget.horizontalHeaderItem(1)
