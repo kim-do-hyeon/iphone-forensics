@@ -5,6 +5,7 @@ import sqlite3
 import datetime
 import src.util
 import gui.plugin
+import gui.auto_db
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
 from PyQt5.QtGui import *
@@ -34,6 +35,9 @@ class MainWindow(QMainWindow, ui):
 
         # Button - Extract Button
         self.extract_btn.clicked.connect(self.extract)
+
+        # Button - Artifacts Analyze Button
+        self.analyze_btn.clicked.connect(self.auto_analyze)
 
         # Button - iPhone Information Buttons
         self.iphone_information_btn.clicked.connect(self.iphone_information)
@@ -157,6 +161,8 @@ class MainWindow(QMainWindow, ui):
         conn.close()
         self.progressBar.setValue(100)
 
+    def auto_analyze(self) :
+        gui.auto_db.auto(self, extract_path)
 
     # Information
     def iphone_information(self) :

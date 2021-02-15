@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1238</width>
+    <width>1279</width>
     <height>608</height>
    </rect>
   </property>
@@ -62,45 +62,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="iphone_information_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>iPhone information</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="backup_information_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>130</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Backup Information</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="sms_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>370</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>SMS Artifact</string>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="enabled">
      <bool>true</bool>
@@ -154,19 +115,6 @@
     </property>
     <property name="text">
      <string>Select</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="addressbook_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>340</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>AddressBook Artifact</string>
     </property>
    </widget>
    <widget class="QLabel" name="extract_path_label">
@@ -286,19 +234,6 @@
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QPushButton" name="wallet_pass_btn">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>310</y>
-      <width>131</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Apple Wallet Artifact</string>
-    </property>
-   </widget>
    <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
@@ -323,6 +258,110 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>131</width>
+      <height>75</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_informaton">
+     <item>
+      <widget class="QLabel" name="information_label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Infomation</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="iphone_information_btn">
+       <property name="text">
+        <string>iPhone information</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="backup_information_btn">
+       <property name="text">
+        <string>Backup Information</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="verticalLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>131</width>
+      <height>104</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_artifacts">
+     <item>
+      <widget class="QLabel" name="artifacts_label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Artifacts</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="sms_btn">
+       <property name="text">
+        <string>SMS Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="wallet_pass_btn">
+       <property name="text">
+        <string>Apple Wallet Artifact</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="addressbook_btn">
+       <property name="text">
+        <string>AddressBook Artifact</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="analyze_btn">
+    <property name="geometry">
+     <rect>
+      <x>1190</x>
+      <y>40</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Analyze</string>
     </property>
    </widget>
   </widget>
