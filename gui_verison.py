@@ -328,7 +328,7 @@ class ExtractThread(QThread):
         total_count = len(r)
         progressbar_count = 0
         progressbar_progress = 100 / total_count
-        for i in range(22000) :
+        for i in range(total_count) :
             value = src.util.printProgress_gui(i, total_count, 'Progress:', 'Complete', 1, 50)
             target = r[i][0]
             if int(r[i][3]) == 1 :

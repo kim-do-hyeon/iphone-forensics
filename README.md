@@ -28,3 +28,4 @@ python run.py
 * 2021-02-13 Add a plugin that puts the values into the db
 * 2021-02-14 Create gui version (ver 1.0)
 * 2021-02-15 Add progress gauge status & Bug fix & Add gui log function
+* 2021-02-16 Applying threads to extraction functions & Bug fix
