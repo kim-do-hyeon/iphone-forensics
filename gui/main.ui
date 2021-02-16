@@ -6,9 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1279</width>
-    <height>608</height>
+    <width>1200</width>
+    <height>540</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1200</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>540</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -23,9 +35,9 @@
    <widget class="QPushButton" name="folder_select_btn">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1010</x>
       <y>10</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -36,9 +48,9 @@
    <widget class="QPushButton" name="extract_btn">
     <property name="geometry">
      <rect>
-      <x>1110</x>
+      <x>1100</x>
       <y>40</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -70,8 +82,8 @@
      <rect>
       <x>430</x>
       <y>100</y>
-      <width>761</width>
-      <height>381</height>
+      <width>751</width>
+      <height>391</height>
      </rect>
     </property>
    </widget>
@@ -81,7 +93,7 @@
       <x>150</x>
       <y>100</y>
       <width>271</width>
-      <height>381</height>
+      <height>391</height>
      </rect>
     </property>
     <property name="readOnly">
@@ -107,9 +119,9 @@
    <widget class="QPushButton" name="db_path_select_btn">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1010</x>
       <y>70</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -136,9 +148,9 @@
    <widget class="QPushButton" name="extract_select_btn">
     <property name="geometry">
      <rect>
-      <x>1030</x>
+      <x>1010</x>
       <y>40</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -149,9 +161,9 @@
    <widget class="QPushButton" name="auto_select_btn">
     <property name="geometry">
      <rect>
-      <x>1110</x>
+      <x>1100</x>
       <y>10</y>
-      <width>75</width>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -164,7 +176,7 @@
      <rect>
       <x>150</x>
       <y>10</y>
-      <width>871</width>
+      <width>851</width>
       <height>21</height>
      </rect>
     </property>
@@ -189,7 +201,7 @@
      <rect>
       <x>150</x>
       <y>40</y>
-      <width>871</width>
+      <width>851</width>
       <height>21</height>
      </rect>
     </property>
@@ -214,7 +226,7 @@
      <rect>
       <x>150</x>
       <y>70</y>
-      <width>871</width>
+      <width>851</width>
       <height>21</height>
      </rect>
     </property>
@@ -238,7 +250,7 @@
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>490</y>
+      <y>500</y>
       <width>271</width>
       <height>23</height>
      </rect>
@@ -247,152 +259,12 @@
      <number>0</number>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>100</y>
-      <width>131</width>
-      <height>75</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_informaton">
-     <item>
-      <widget class="QLabel" name="information_label">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Infomation</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="iphone_information_btn">
-       <property name="text">
-        <string>iPhone information</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="backup_information_btn">
-       <property name="text">
-        <string>Backup Information</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="verticalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>180</y>
-      <width>133</width>
-      <height>307</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout_artifacts">
-     <item>
-      <widget class="QLabel" name="artifacts_label">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Artifacts</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sms_btn">
-       <property name="text">
-        <string>SMS Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="wallet_pass_btn">
-       <property name="text">
-        <string>Apple Wallet Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="appleaccount_btn">
-       <property name="text">
-        <string>Apple Account Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="addressbook_btn">
-       <property name="text">
-        <string>AddressBook Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="calendar_btn">
-       <property name="text">
-        <string>Calendar Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="bluetooth_btn">
-       <property name="text">
-        <string>Bluetooth Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="bluetooth_all_btn">
-       <property name="text">
-        <string>All Bluetooth Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="simcard_btn">
-       <property name="text">
-        <string>SIM Card Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="application_btn">
-       <property name="text">
-        <string>Application Artifact</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="tcc_btn">
-       <property name="text">
-        <string>TCC Artifact</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
    <widget class="QPushButton" name="analyze_btn">
     <property name="geometry">
      <rect>
-      <x>1190</x>
-      <y>40</y>
-      <width>75</width>
+      <x>1100</x>
+      <y>70</y>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
@@ -404,13 +276,213 @@
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>492</y>
+      <y>500</y>
       <width>761</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backup_information_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Backup Information</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="information_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>131</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Infomation</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="iphone_information_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>121</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>iPhone information</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="tcc_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>470</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TCC Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bluetooth_all_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>383</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>All Bluetooth Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="application_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>441</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Application Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="sms_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>209</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SMS Artifact</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="artifacts_label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>188</y>
+      <width>131</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Artifacts</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="wallet_pass_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>238</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apple Wallet Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="simcard_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>412</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SIM Card Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="appleaccount_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>267</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Apple Account Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bluetooth_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>354</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Bluetooth Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addressbook_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>296</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>AddressBook Artifact</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="calendar_btn">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>325</y>
+      <width>131</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Calendar Artifact</string>
     </property>
    </widget>
   </widget>

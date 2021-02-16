@@ -48,10 +48,21 @@ def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, bar
     percent = formatStr.format(100 * (iteration / float(total)))
     filledLength = int(round(barLength * iteration / float(total)))
     bar = '#' * filledLength + '-' * (barLength - filledLength)
+    sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percent, '%', suffix))
     sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percent, '%', suffix)),
     if iteration == total:
         sys.stdout.write('\n')
     sys.stdout.flush()
+
+def printProgress_gui (iteration, total, prefix = '', suffix = '', decimals = 1, barLength = 100):
+    import sys
+    formatStr = "{0:." + str(decimals) + "f}"
+    percent = formatStr.format(100 * (iteration / float(total)))
+    filledLength = int(round(barLength * iteration / float(total)))
+    bar = '#' * filledLength + '-' * (barLength - filledLength)
+    value = sys.stdout.write('\r%s |%s| %s%s %s' % (prefix, bar, percent, '%', suffix))
+    value = ('\r%s |%s| %s%s %s' % (prefix, bar, percent, '%', suffix))
+    return value
 
 def db_exsit() :
     import os

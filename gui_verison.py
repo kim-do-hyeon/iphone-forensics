@@ -2,6 +2,7 @@ import os
 import sys
 import pathlib
 import sqlite3
+import shutil
 import datetime
 import src.util
 import gui.plugin
@@ -69,6 +70,12 @@ class MainWindow(QMainWindow, ui):
         # ProgrssBar Setting
         self.progressBar.setValue(0)
 
+        # Thread
+        self.th_extract = ExtractThread(self)
+        self.th_extract.evt_result_append.connect(self.th_extract_result_handler)
+        self.th_extract.evt_result_bar_append.connect(self.th_extract_result_bar_handler)
+        self.th_extract.evt_extract_finished.connect(self.th_extract_finish_handler)
+
     # Path Select 
     def folder_path_select(self) :
         dialog = QFileDialog()
@@ -117,65 +124,41 @@ class MainWindow(QMainWindow, ui):
     # Extract
     def extract(self) :
         try :
+            log("Extract Start")
+            extract_exsit_path = extract_path + '/extract_file'
+            if os.path.isdir(extract_exsit_path) == True :
+                log("Extract Folder Exsits")
+                reply = QMessageBox.question(self, 'Extract Folder Exists', 'The Extract folder exists. Do you want it to be overwritten?\nIt may take some time.', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+                if reply == QMessageBox.No:
+                    log("Extract Folder Exsits > N")
+                    return
+                else : 
+                    log("Extract Folder > Y > Remove Extract Folder")
+                    shutil.rmtree(extract_exsit_path)
             try :
-                log("Extract Start")
-                self.extract_backupfile(folder_path, extract_path)
-                log("Extract Success")
+                self.processing_label.setText("Extract Start")
+                self.set_enabled(False)
+                self.th_extract.start()
+                self.progressBar.setValue(100)
+                self.processing_label.setText("Extract Success")
             except :
                 log("Extract Fail")
                 QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         except :
             log("Extract Fail")
             QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
-        
-    def extract_backupfile(self, backupfile_location, extract_location) :
-        log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error.txt'
-        err_log_file = open(log_name, 'w', -1, 'utf-8')
-        print("========== Extract ERROR LOG ==========", file = err_log_file)
-        targetdir = backupfile_location
-        Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
-        def filepath(target):
-            folder = target[:2]
-            return pathlib.Path(str(targetdir) + r"\\" + folder + r"\\" + target)
+    
+    # Thread Hanlder
+    def th_extract_result_handler(self, message):
+        self.processing_label.setText(message)
+    
+    def th_extract_result_bar_handler(self, count):
+        self.progressBar.setValue(round(float(count)))
 
-        conn = sqlite3.connect(Manifest_location)
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM Files")
-        r = cur.fetchall()
-        total_count = len(r)
-        progressbar_count = 0
-        progressbar_progress = 100 / total_count
-        for i in range(total_count) :
-            self.progressBar.setValue(round(progressbar_count))
-            value = (src.util.printProgress(i, total_count, 'Progress:', 'Complete', 1, 50))
-            target = r[i][0]
-            if int(r[i][3]) == 1 :
-                file_path = filepath(target)
-                realativePath = pathlib.Path(r[i][2])
-                file_new_name = realativePath.parts[-1]
-                destination_path = r[i][1] + "/" + r[i][2]
-                destination_path = list(pathlib.Path(destination_path).parts)
-                destination_path.pop()
-                destination_path = '/'.join(destination_path)
-                if os.path.isdir(destination_path) : pass
-                else :
-                    try :
-                        cwd = extract_location + "/extract_file/" + destination_path
-                        cwd = pathlib.Path(cwd)
-                        os.makedirs(cwd)
-                    except : pass
-                try :
-                    destination_path = extract_location + "/extract_file/" + destination_path
-                    destination_path = pathlib.Path(destination_path)
-                    shutil.copyfile(file_path, os.path.join(destination_path, file_new_name))
-                except :
-                    print("Copy Fail > " + str(destination_path) + " > " + str(file_new_name), file = err_log_file)
-                    pass
-            progressbar_count += progressbar_progress
-        print("\n")
-        print("========== Success Extract Files ==========", file = err_log_file)
-        conn.close()
-        self.progressBar.setValue(100)
+    def th_extract_finish_handler(self):
+        self.set_enabled(True)
+        log("Extract Success")
+        QMessageBox.information(self, 'Finished', 'Extract finished!', QMessageBox.Ok, QMessageBox.Ok)
 
     def auto_analyze(self) :
         # Check DB File Exsit
@@ -298,6 +281,85 @@ class MainWindow(QMainWindow, ui):
         except :
             log("Artifacts > App Permission (TCC) > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+        
+    def set_enabled(self, enabled):
+        self.folder_select_btn.setEnabled(enabled)
+        self.auto_select_btn.setEnabled(enabled)
+        self.extract_select_btn.setEnabled(enabled)
+        self.extract_btn.setEnabled(enabled)
+        self.db_path_select_btn.setEnabled(enabled)
+        self.analyze_btn.setEnabled(enabled)
+        self.iphone_information_btn.setEnabled(enabled)
+        self.backup_information_btn.setEnabled(enabled)
+        self.sms_btn.setEnabled(enabled)
+        self.wallet_pass_btn.setEnabled(enabled)
+        self.appleaccount_btn.setEnabled(enabled)
+        self.addressbook_btn.setEnabled(enabled)
+        self.calendar_btn.setEnabled(enabled)
+        self.bluetooth_btn.setEnabled(enabled)
+        self.bluetooth_all_btn.setEnabled(enabled)
+        self.simcard_btn.setEnabled(enabled)
+        self.application_btn.setEnabled(enabled)
+        self.tcc_btn.setEnabled(enabled)
+
+class ExtractThread(QThread):
+    evt_result_append = pyqtSignal(str)
+    evt_result_bar_append = pyqtSignal(str)
+    evt_extract_finished = pyqtSignal()
+
+    def __init__(self, parent=None):
+        super().__init__()
+        self.main = parent
+
+    def run(self) :
+        log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '_error.txt'
+        err_log_file = open(log_name, 'w', -1, 'utf-8')
+        print("========== Extract ERROR LOG ==========", file = err_log_file)
+        targetdir = folder_path
+        Manifest_location = pathlib.Path(str(folder_path) + "\\Manifest.db")
+        def filepath(target):
+            folder = target[:2]
+            return pathlib.Path(str(targetdir) + r"\\" + folder + r"\\" + target)
+
+        conn = sqlite3.connect(Manifest_location)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Files")
+        r = cur.fetchall()
+        total_count = len(r)
+        progressbar_count = 0
+        progressbar_progress = 100 / total_count
+        for i in range(22000) :
+            value = src.util.printProgress_gui(i, total_count, 'Progress:', 'Complete', 1, 50)
+            target = r[i][0]
+            if int(r[i][3]) == 1 :
+                file_path = filepath(target)
+                realativePath = pathlib.Path(r[i][2])
+                file_new_name = realativePath.parts[-1]
+                destination_path = r[i][1] + "/" + r[i][2]
+                destination_path = list(pathlib.Path(destination_path).parts)
+                destination_path.pop()
+                destination_path = '/'.join(destination_path)
+                if os.path.isdir(destination_path) : pass
+                else :
+                    try :
+                        cwd = extract_path + "/extract_file/" + destination_path
+                        cwd = pathlib.Path(cwd)
+                        os.makedirs(cwd)
+                    except : pass
+                try :
+                    destination_path = extract_path + "/extract_file/" + destination_path
+                    destination_path = pathlib.Path(destination_path)
+                    shutil.copyfile(file_path, os.path.join(destination_path, file_new_name))
+                except :
+                    print("Copy Fail > " + str(destination_path) + " > " + str(file_new_name), file = err_log_file)
+                    pass
+            progressbar_count += progressbar_progress
+            self.evt_result_append.emit(value)
+            self.evt_result_bar_append.emit(str(progressbar_count))
+        print("\n")
+        print("========== Success Extract Files ==========", file = err_log_file)
+        conn.close() 
+        self.evt_extract_finished.emit()
 
 def main():
     app = QApplication(sys.argv)
