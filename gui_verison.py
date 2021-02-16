@@ -85,28 +85,40 @@ class MainWindow(QMainWindow, ui):
         log("Folder Path > " + str(folder_path))
 
     def auto_path_select(self) :
-        appdata_path = os.getenv('APPDATA')
-        backup_file_path = os.getenv('APPDATA') + "\Apple Computer\MobileSync\Backup"
-        backup_file_list = os.listdir(backup_file_path)
-        backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
-        self.folder_path_line.setText(backup_file_location)
-        self.folder_path_global(backup_file_location) # Global Variable Settings
-        log("Folder Path > " + str(folder_path))
+        try :
+            appdata_path = os.getenv('APPDATA')
+            backup_file_path = os.getenv('APPDATA') + "\Apple Computer\MobileSync\Backup"
+            backup_file_list = os.listdir(backup_file_path)
+            backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
+            self.folder_path_line.setText(backup_file_location)
+            self.folder_path_global(backup_file_location) # Global Variable Settings
+            log("Auto Folder Path > " + str(folder_path))
+        except :
+            log("Auto Folder Path > FAIL")
+            QMessageBox.warning(self, 'Error', 'Backup Folder Not Found.\nVerify that the files are in that folder', QMessageBox.Ok, QMessageBox.Ok)
 
     def db_path_select(self) :
-        global db_path
-        db_filter = 'DataBase File (*.db) ;; All files (*.*)'
-        db_path = QFileDialog.getOpenFileName(self, 'Select DB', filter=db_filter)
-        db_path = db_path[0]
-        self.db_path_line.setText(db_path)
-        log("DB Path > " + str(db_path))
+        try :
+            global db_path
+            db_filter = 'DataBase File (*.db) ;; All files (*.*)'
+            db_path = QFileDialog.getOpenFileName(self, 'Select DB', filter=db_filter)
+            db_path = db_path[0]
+            self.db_path_line.setText(db_path)
+            log("DB Path > " + str(db_path))
+        except :
+            log("DB Path > FAIL")
+            QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
 
     def extract_path_select(self) :
-        global extract_path
-        dialog = QFileDialog()
-        extract_path = dialog.getExistingDirectory(None, "Select Folder")
-        self.extract_path_line.setText(extract_path)
-        log("Extract Path > " + str(extract_path))
+        try :
+            global extract_path
+            dialog = QFileDialog()
+            extract_path = dialog.getExistingDirectory(None, "Select Folder")
+            self.extract_path_line.setText(extract_path)
+            log("Extract Path > " + str(extract_path))
+        except :
+            log("Extract Path > FAIL")
+            QMessageBox.warning(self, 'Error', 'Something Wrong\nVerify that the files are in that folder', QMessageBox.Ok, QMessageBox.Ok)
         
     def folder_path_global(self, path) :
         global folder_path
@@ -114,12 +126,16 @@ class MainWindow(QMainWindow, ui):
         self.requirement_file()
 
     def requirement_file(self) :
-        global manifest_location
-        global info_location
-        manifest_location = str(folder_path) + "\\Manifest.plist"
-        info_location = str(folder_path) + "\\Info.plist"
-        log("Manifest Path > " + str(manifest_location))
-        log("Info Path > " + str(info_location))
+        try :
+            global manifest_location
+            global info_location
+            manifest_location = str(folder_path) + "\\Manifest.plist"
+            info_location = str(folder_path) + "\\Info.plist"
+            log("Manifest Path > " + str(manifest_location))
+            log("Info Path > " + str(info_location))
+        except :
+            log("Manifest, Info File > FAIL")
+            QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
         
     # Extract
     def extract(self) :
