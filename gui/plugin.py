@@ -12,56 +12,56 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 # iPhone Information
 def iphone_information(self, manifest_location, info_location):
-    try :
-        with open(manifest_location, 'rb') as fp :
-            manifest = plistlib.loads(fp.read())
-        with open(info_location, 'rb') as fp :
-            info = plistlib.loads(fp.read())
-        device_name = info["Device Name"]
-        display_name = info["Display Name"]
-        build_version = info["Build Version"]
-        GUID = info["GUID"]
-        ICCID = info["ICCID"]
-        IMEI = info["IMEI"]
-        Last_Backup_Date = info["Last Backup Date"]
-        phone_number = info["Phone Number"]
-        product_name = info["Product Name"]
-        product_type = info["Product Type"]
-        product_version = info["Product Version"]
-        serial_number = info["Serial Number"]
-        target_identifier = info["Target Identifier"]
-        target_type = info["Target Type"]
-        items = "\n==== iPhone Information ====\n\n" + "Device Name : " + device_name + "\n" + "Display Name : " + display_name + "\n" + "Build Version : \
-            " + build_version + "\n"+ "GUID : " + GUID + "\n" + "ICCID : " + ICCID + " \n" + "IMEI : \
-            " + IMEI + "\n" + "Last Backup Date : " + str(Last_Backup_Date)+ "\n" + "Phone Number : \
-            " + phone_number + "\n" + "Product Type : " + product_type + "\n" + "Product Type : \
-            " + product_type + "\n" + "Serial Number : " + serial_number + "\n" + "Target Identifier : \
-            " + target_identifier + "\n" + "Targey Type : " + target_type
-        self.txt_result.setText(items)
-        self.progressBar.setValue(100)
-    except :
-        QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
+    # try :
+    with open(manifest_location, 'rb') as fp :
+        manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    device_name = info["Device Name"]
+    display_name = info["Display Name"]
+    build_version = info["Build Version"]
+    GUID = info["GUID"]
+    ICCID = info["ICCID"]
+    IMEI = info["IMEI"]
+    Last_Backup_Date = info["Last Backup Date"]
+    phone_number = info["Phone Number"]
+    product_name = info["Product Name"]
+    product_type = info["Product Type"]
+    product_version = info["Product Version"]
+    serial_number = info["Serial Number"]
+    target_identifier = info["Target Identifier"]
+    target_type = info["Target Type"]
+    items = "\n==== iPhone Information ====\n\n" + "Device Name : " + device_name + "\n" + "Display Name : " + display_name + "\n" + "Build Version : \
+        " + build_version + "\n"+ "GUID : " + GUID + "\n" + "ICCID : " + ICCID + " \n" + "IMEI : \
+        " + IMEI + "\n" + "Last Backup Date : " + str(Last_Backup_Date)+ "\n" + "Phone Number : \
+        " + phone_number + "\n" + "Product Type : " + product_type + "\n" + "Product Type : \
+        " + product_type + "\n" + "Serial Number : " + serial_number + "\n" + "Target Identifier : \
+        " + target_identifier + "\n" + "Targey Type : " + target_type
+    self.txt_result.setText(items)
+    self.progressBar.setValue(100)
+    # except :
+    #     QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
 
 def backup_information(self, manifest_location, info_location) :
-    try :
-        with open(manifest_location, 'rb') as fp :
-            manifest = plistlib.loads(fp.read())
-        with open(info_location, 'rb') as fp :
-            info = plistlib.loads(fp.read())
-        isencrypted = manifest["IsEncrypted"]
-        backup_version = manifest["Version"]
-        backup_date = manifest["Date"]
-        backup_system_domains_version = manifest["SystemDomainsVersion"]
-        backup_iphone_password_exsit = manifest["WasPasscodeSet"]
-        items = "\n==== Backup Information ====\n\n" +" IsEncrypted : " + str(isencrypted) + "\n" + "Version : \
-            " + backup_version + "\n" + "Backup Date : \
-            " + str(backup_date) + "\n" + "Backup System Domains Version : \
-            " + str(backup_system_domains_version) + "\n" + "Backup iPhone Password Exsit : \
-            " + str(backup_iphone_password_exsit)
-        self.txt_result.setText(items)
-        self.progressBar.setValue(100)
-    except :
-        QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
+    # try :
+    with open(manifest_location, 'rb') as fp :
+        manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    isencrypted = manifest["IsEncrypted"]
+    backup_version = manifest["Version"]
+    backup_date = manifest["Date"]
+    backup_system_domains_version = manifest["SystemDomainsVersion"]
+    backup_iphone_password_exsit = manifest["WasPasscodeSet"]
+    items = "\n==== Backup Information ====\n\n" +" IsEncrypted : " + str(isencrypted) + "\n" + "Version : \
+        " + backup_version + "\n" + "Backup Date : \
+        " + str(backup_date) + "\n" + "Backup System Domains Version : \
+        " + str(backup_system_domains_version) + "\n" + "Backup iPhone Password Exsit : \
+        " + str(backup_iphone_password_exsit)
+    self.txt_result.setText(items)
+    self.progressBar.setValue(100)
+    # except :
+    #     QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
 
 # SMS
 def sms(self, db_path) :
