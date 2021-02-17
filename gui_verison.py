@@ -207,6 +207,18 @@ class MainWindow(QMainWindow, ui):
             else : 
                 log("DB File Exsits > Y > Remove DB File")
                 os.remove(db)
+
+        db = os.getcwd() + '/analyze.db'
+        if os.path.isfile(db) == True :
+            log("DB File Exsits")
+            reply = QMessageBox.question(self, 'DB Exists', 'The database file exists. Do you want it to be overwritten?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.No:
+                log("DB File Exsits > N")
+                return
+            else : 
+                log("DB File Exsits > Y > Remove DB File")
+                os.remove(db)
+
         try :
             log("Auto Analyzing Start")
             gui.auto_db.auto(self, extract_path)

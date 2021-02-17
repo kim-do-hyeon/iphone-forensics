@@ -6,7 +6,6 @@ Requires [Python 3.4](https://www.python.org/) or higher.
 
 Ideal dependencies:
 ```bash
-pip install plistlib
 pip install pyqt
 ```
 Or
@@ -29,3 +28,4 @@ python run.py
 * 2021-02-14 Create gui version (ver 1.0)
 * 2021-02-15 Add progress gauge status & Bug fix & Add gui log function
 * 2021-02-16 Applying threads to extraction functions & Bug fix
+* 2021-02-17 Adding exception handling for manifest, info files & Modify plist bug & Add exception processing
