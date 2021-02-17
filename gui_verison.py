@@ -7,6 +7,9 @@ import datetime
 import src.util
 import gui.plugin
 import gui.auto_db
+
+from gui.requirement_except import ExceptWindow
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
 from PyQt5.QtGui import *
@@ -136,6 +139,22 @@ class MainWindow(QMainWindow, ui):
         except :
             log("Manifest, Info File > FAIL")
             QMessageBox.warning(self, 'Error', 'Something Wrong', QMessageBox.Ok, QMessageBox.Ok)
+    
+    # Except Process
+    def except_file(self) :
+        self.except_process = ExceptWindow()
+        self.except_process.except_manifest.connect(self.except_manifest_path)
+        self.except_process.except_info.connect(self.except_info_path)
+
+    def except_manifest_path(self, value) :
+        global manifest_location
+        manifest_location = value
+        log("Except Manifest Path > " + str(manifest_location))
+
+    def except_info_path(self, value) :
+        global info_location
+        info_location = value
+        log("Except Info Path > " + str(info_location))
         
     # Extract
     def extract(self) :
@@ -204,7 +223,13 @@ class MainWindow(QMainWindow, ui):
             log("Information > iPhone Information > Success")
         except :
             log("Information > iPhone Information > Fail")
-            QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
+            reply = QMessageBox.question(self, 'Error', 'Perhaps Manifest.plist does not exist.\nDo you want to choose yourself?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.No:
+                log("Except Select File > N")
+                return
+            else :
+                log("Except Select File > Y")
+                self.except_file()
     
     def backup_information(self) :
         self.progressBar.setValue(0)
@@ -213,7 +238,13 @@ class MainWindow(QMainWindow, ui):
             log("Information > backup Information > Success")
         except :
             log("Information > iPhone Information > Fail")
-            QMessageBox.warning(self, 'Error', 'Something Wrong...', QMessageBox.Ok, QMessageBox.Ok)
+            reply = QMessageBox.question(self, 'Error', 'Perhaps Info.plist does not exist.\nDo you want to choose yourself?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if reply == QMessageBox.No:
+                log("Except Select File > N")
+                return
+            else :
+                log("Except Select File > Y")
+                self.except_file()
 
     # Artifacts
     def sms(self):
