@@ -1,9 +1,13 @@
 import plistlib
 import src.util
 
-def iphone_information(manifest, info) :
-    manifest = plistlib.readPlist(manifest)
-    info = plistlib.readPlist(info)
+def iphone_information(manifest_location, info_location) :
+    with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    # manifest = plistlib.readPlist(manifest)
+    # info = plistlib.readPlist(info)
     device_name = info["Device Name"]
     display_name = info["Display Name"]
     build_version = info["Build Version"]
@@ -35,9 +39,13 @@ def iphone_information(manifest, info) :
     print("Target Type : ", target_type)
     print("========================================\n")
 
-def iphone_backup_information(manifest, info) :
-    manifest = plistlib.readPlist(manifest)
-    info = plistlib.readPlist(info)
+def iphone_backup_information(manifest_location, info_location) :
+    with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    # manifest = plistlib.readPlist(manifest)
+    # info = plistlib.readPlist(info)
     isencrypted = manifest["IsEncrypted"]
     backup_version = manifest["Version"]
     backup_date = manifest["Date"]
@@ -51,9 +59,13 @@ def iphone_backup_information(manifest, info) :
     print("Iphone Password Exsit? : ", backup_iphone_password_exsit)
     print("====================================================\n")
 
-def iphone_accessibility_information(manifest, info) :
-    manifest = plistlib.readPlist(manifest)
-    info = plistlib.readPlist(info)
+def iphone_accessibility_information(manifest_location, info_location) :
+    with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    # manifest = plistlib.readPlist(manifest)
+    # info = plistlib.readPlist(info)
     mono_audio = manifest["Lockdown"]["com.apple.Accessibility"]["MonoAudioEnabledByiTunes"]
     voice_over_touch = manifest["Lockdown"]["com.apple.Accessibility"]["VoiceOverTouchEnabledByiTunes"]
     closed_captioning = manifest["Lockdown"]["com.apple.Accessibility"]["ClosedCaptioningEnabledByiTunes"]
@@ -69,9 +81,13 @@ def iphone_accessibility_information(manifest, info) :
     print("ZoomTouch Enabled : ", zoom_touch)
     print("======================================================\n")
 
-def installed_Application(manifest, info) :
-    manifest = plistlib.readPlist(manifest)
-    info = plistlib.readPlist(info)
+def installed_Application(manifest_location, info_location) :
+    with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+    with open(info_location, 'rb') as fp :
+        info = plistlib.loads(fp.read())
+    # manifest = plistlib.readPlist(manifest)
+    # info = plistlib.readPlist(info)
     installed_application_list = info["Installed Applications"]
     installed_application_count = 0
     for key in installed_application_list :

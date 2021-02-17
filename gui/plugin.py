@@ -13,8 +13,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # iPhone Information
 def iphone_information(self, manifest_location, info_location):
     try :
-        manifest = plistlib.readPlist(manifest_location)
-        info = plistlib.readPlist(info_location)
+        with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+        with open(info_location, 'rb') as fp :
+            info = plistlib.loads(fp.read())
         device_name = info["Device Name"]
         display_name = info["Display Name"]
         build_version = info["Build Version"]
@@ -42,8 +44,10 @@ def iphone_information(self, manifest_location, info_location):
 
 def backup_information(self, manifest_location, info_location) :
     try :
-        manifest = plistlib.readPlist(manifest_location)
-        info = plistlib.readPlist(info_location)
+        with open(manifest_location, 'rb') as fp :
+            manifest = plistlib.loads(fp.read())
+        with open(info_location, 'rb') as fp :
+            info = plistlib.loads(fp.read())
         isencrypted = manifest["IsEncrypted"]
         backup_version = manifest["Version"]
         backup_date = manifest["Date"]

@@ -67,8 +67,10 @@ def auto(self, extract_path) :
             pass
 
         # Bluetooth Artifact
-    
-        bluetooth_device = plistlib.readPlist(extract_path + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Preferences/com.apple.MobileBluetooth.devices.plist")
+        path = extract_path + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Preferences/com.apple.MobileBluetooth.devices.plist"
+        with open(path, 'rb') as fp :
+            bluetooth_device = plistlib.loads(fp.read())
+        # bluetooth_device = plistlib.readPlist(extract_path + "/extract_file/SysSharedContainerDomain-systemgroup.com.apple.bluetooth/Library/Preferences/com.apple.MobileBluetooth.devices.plist")
         bluetooth_device_mac_address = []
         for i in bluetooth_device :
             bluetooth_device_mac_address.append(i)
@@ -209,17 +211,25 @@ def auto(self, extract_path) :
             pass
 
         # Owner Information Artifact
-
-        homesharing = plistlib.readPlist(extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.homesharing.plist")
-        purplebuddy = plistlib.readPlist(extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.purplebuddy.plist")
-        systemConfiguration_preferences = plistlib.readPlist(extract_path + "/extract_file/SystemPreferencesDomain/SystemConfiguration/preferences.plist")
+        homesharing_path = extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.homesharing.plist"
+        purplebuddy_path = extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.purplebuddy.plist"
+        systemConfiguration_preferences_path = extract_path + "/extract_file/SystemPreferencesDomain/SystemConfiguration/preferences.plist"
+        with open(homesharing_path, 'rb') as fp :
+            homesharing = plistlib.loads(fp.read())
+        with open(purplebuddy_path, 'rb') as fp :
+            purplebuddy = plistlib.loads(fp.read())
+        with open(systemConfiguration_preferences_path, 'rb') as fp :
+            systemConfiguration_preferences = plistlib.loads(fp.read())
+        # homesharing = plistlib.readPlist(extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.homesharing.plist")
+        # purplebuddy = plistlib.readPlist(extract_path + "/extract_file/HomeDomain/Library/Preferences/com.apple.purplebuddy.plist")
+        # systemConfiguration_preferences = plistlib.readPlist(extract_path + "/extract_file/SystemPreferencesDomain/SystemConfiguration/preferences.plist")
         device_name = systemConfiguration_preferences["System"]["System"]["HostName"]
         apple_id = homesharing["homeSharingAppleID"]
         install_date = purplebuddy["SetupLastExit"]
         install_type = purplebuddy["SetupState"]
 
         owner_information = [["device_name", device_name], ["apple_id", apple_id], ["install_date", install_date], ["install_type", install_type]]
-
+        
         try :
             conn = sqlite3.connect("analyze.db")
             cur = conn.cursor()
