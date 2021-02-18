@@ -27,49 +27,51 @@ log("Start")
 # Get iPhone Backup File Path
 #       (%appdata%\Roaming\Apple Computer\MobileSynce\Backup)
 #       (%USERPROFILE%\Apple\MobileSync\Backup)
+
 try :
-    try :
-        appdata_path = os.getenv('APPDATA')
-        log("Appdata Path > " + str(appdata_path))
-        backup_file_path = pathlib.Path(appdata_path + "\Apple Computer\MobileSync\Backup")
-        log("Backup File Path > " + str(backup_file_path))
-        backup_file_list = os.listdir(backup_file_path)
-        log("Backup File List > " + str(backup_file_list))
+    appdata_path = os.getenv('APPDATA')
+    log("Appdata Path > " + str(appdata_path))
+    backup_file_path = pathlib.Path(appdata_path + "\Apple Computer\MobileSync\Backup")
+    if os.path.islink(backup_file_path) == True:
+        backup_file_path = pathlib.Path(os.readlink(backup_file_path)[4:])
+    log("Backup File Path > " + str(backup_file_path))
+    backup_file_list = os.listdir(backup_file_path)
+    log("Backup File List > " + str(backup_file_list))
 
-        print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
-
-        # Backup File List
-        for i in range(len(backup_file_list)) :
-            print("[{0}] : ".format(i), backup_file_list[i])
-    except :
-        pass
-    
-    try :
+    if backup_file_list == []:
         appdata_path = os.getenv('USERPROFILE')
         log("Appdata Path > " + str(appdata_path))
         backup_file_path = pathlib.Path(appdata_path + "\Apple\MobileSync\Backup")
+        if os.path.islink(backup_file_path) == True:
+            backup_file_path = pathlib.Path(os.readlink(backup_file_path)[4:])
         log("Backup File Path > " + str(backup_file_path))
         backup_file_list = os.listdir(backup_file_path)
         log("Backup File List > " + str(backup_file_list))
 
+        if backup_file_list == []:
+            print("The backup file could not be found. Does it exist in a different location?")
+            backup_file_path = str(input("Please enter the location of the backup file : "))
+            backup_file_path = pathlib.Path(backup_file_path)
+            print(backup_file_path)
+            log("Custom Backup File Path > " + str(backup_file_path))
+            backup_file_list = os.listdir(backup_file_path)
+            log("Custom Backup File List > ", + str(backup_file_list))
+        else:
+            print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
+
+        # Backup File List
+            for i in range(len(backup_file_list)) :
+                print("[{0}] : ".format(i), backup_file_list[i])
+
+    else:
         print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
 
         # Backup File List
         for i in range(len(backup_file_list)) :
             print("[{0}] : ".format(i), backup_file_list[i])
-    except :
-        pass
 
 except :
-    print("The backup file could not be found. Does it exist in a different location?")
-    backup_file_path = str(input("Please enter the location of the backup file : "))
-    backup_file_path = pathlib.Path(backup_file_path)
-    log("Custom Backup File Path > " + str(backup_file_path))
-    backup_file_list = os.listdir(backup_file_path)
-    log("Custom Backup File List > ", + str(backup_file_list))
-    
-    for i in range(len(backup_file_list)) :
-        print("[{0}] : ".format(i), backup_file_list[i])
+    print('Error')
 
 temp = int(input("Selected Number : "))
 log("Selected Number > " + str(temp))
