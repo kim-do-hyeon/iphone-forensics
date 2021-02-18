@@ -31,7 +31,8 @@ defualt_message = "* iPhone Forensics Tool * \n\
     \n Sourced By PENTAL \n \
     \n First, Mount the location of the iPhone backup file.\n\
     \n Second, press the analysis button to proceed with automatic analysis.\n\
-    \n Third, enter the database file and proceed with artifact analysis."
+    \n Third, enter the database file and proceed with artifact analysis.\n\
+    \n If an error occurs, I would appreciate it if you post it on the issue with the log file."
 
 class MainWindow(QMainWindow, ui):
     def __init__(self):
@@ -89,13 +90,25 @@ class MainWindow(QMainWindow, ui):
 
     def auto_path_select(self) :
         try :
-            appdata_path = os.getenv('APPDATA')
-            backup_file_path = os.getenv('APPDATA') + "\Apple Computer\MobileSync\Backup"
-            backup_file_list = os.listdir(backup_file_path)
-            backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
-            self.folder_path_line.setText(backup_file_location)
-            self.folder_path_global(backup_file_location) # Global Variable Settings
-            log("Auto Folder Path > " + str(folder_path))
+            try :
+                appdata_path = os.getenv('APPDATA')
+                backup_file_path = appdata_path + "\Apple Computer\MobileSync\Backup"
+                backup_file_list = os.listdir(backup_file_path)
+                backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
+                self.folder_path_line.setText(backup_file_location)
+                self.folder_path_global(backup_file_location) # Global Variable Settings
+                log("Auto Folder Path > " + str(folder_path))
+            except :
+                try :
+                    appdata_path = os.getenv('USERPROFILE')
+                    backup_file_path = appdata_path + "\Apple\MobileSync\Backup"
+                    backup_file_list = os.listdir(backup_file_path)
+                    backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
+                    self.folder_path_line.setText(backup_file_location)
+                    self.folder_path_global(backup_file_location) # Global Variable Settings
+                    log("Auto Folder Path > " + str(folder_path))
+                except :
+                    pass      
         except :
             log("Auto Folder Path > FAIL")
             QMessageBox.warning(self, 'Error', 'Backup Folder Not Found.\nVerify that the files are in that folder', QMessageBox.Ok, QMessageBox.Ok)

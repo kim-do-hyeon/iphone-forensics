@@ -24,20 +24,41 @@ def log(message):
     print(message, file=log_file)
 log("Start")
 
-# Get iPhone Backup File Path (%appdata%\Roaming\Apple Computer\MobileSynce\Backup)
+# Get iPhone Backup File Path
+#       (%appdata%\Roaming\Apple Computer\MobileSynce\Backup)
+#       (%USERPROFILE%\Apple\MobileSync\Backup)
 try :
-    appdata_path = os.getenv('APPDATA')
-    log("Appdata Path > " + str(appdata_path))
-    backup_file_path = pathlib.Path(os.getenv('APPDATA') + "\Apple Computer\MobileSync\Backup")
-    log("Backup File Path > " + str(backup_file_path))
-    backup_file_list = os.listdir(backup_file_path)
-    log("Backup File List > " + str(backup_file_list))
+    try :
+        appdata_path = os.getenv('APPDATA')
+        log("Appdata Path > " + str(appdata_path))
+        backup_file_path = pathlib.Path(appdata_path + "\Apple Computer\MobileSync\Backup")
+        log("Backup File Path > " + str(backup_file_path))
+        backup_file_list = os.listdir(backup_file_path)
+        log("Backup File List > " + str(backup_file_list))
 
-    print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
+        print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
 
-    # Backup File List
-    for i in range(len(backup_file_list)) :
-        print("[{0}] : ".format(i), backup_file_list[i])
+        # Backup File List
+        for i in range(len(backup_file_list)) :
+            print("[{0}] : ".format(i), backup_file_list[i])
+    except :
+        pass
+    
+    try :
+        appdata_path = os.getenv('USERPROFILE')
+        log("Appdata Path > " + str(appdata_path))
+        backup_file_path = pathlib.Path(appdata_path + "\Apple\MobileSync\Backup")
+        log("Backup File Path > " + str(backup_file_path))
+        backup_file_list = os.listdir(backup_file_path)
+        log("Backup File List > " + str(backup_file_list))
+
+        print("\nList of backup files currently stored on your computer.\nWhen you select a backup file, the file is automatically extracted.")
+
+        # Backup File List
+        for i in range(len(backup_file_list)) :
+            print("[{0}] : ".format(i), backup_file_list[i])
+    except :
+        pass
 
 except :
     print("The backup file could not be found. Does it exist in a different location?")
