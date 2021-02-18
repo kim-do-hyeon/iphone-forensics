@@ -29,3 +29,4 @@ python run.py
 * 2021-02-15 Add progress gauge status & Bug fix & Add gui log function
 * 2021-02-16 Applying threads to extraction functions & Bug fix
 * 2021-02-17 Adding exception handling for manifest, info files & Modify plist bug & Add exception processing
+* 2021-02-18 Fix typos & New branch (ver1.1) & Adding exception handling for cli
