@@ -77,3 +77,10 @@ def db_exsit() :
             return False
         else :
             print("Input Error")
+
+def is_pyqt5_exists():
+    try:
+        from PyQt5 import uic
+    except:
+        return False
+    return True

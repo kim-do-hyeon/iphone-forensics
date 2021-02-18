@@ -16,15 +16,23 @@ def extract_backupfile(backupfile_location) :
     print("========== ERROR LOG ==========", file=log_file)
     print("========== Extract Start!! ==========")
     log("========== Extract Start!! ==========")
-    targetdir = backupfile_location
-    Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
+
+    try :
+        targetdir = backupfile_location
+        Manifest_location = pathlib.Path(str(backupfile_location) + "\\Manifest.db")
+    except :
+        print('Perhaps Manifest.db does not exist. Something Wrong')
+
     def filepath(target):
         folder = target[:2]
         return pathlib.Path(str(targetdir) + r"\\" + folder + r"\\" + target)
-    conn = sqlite3.connect(Manifest_location)
-    cur = conn.cursor()
-    cur.execute("SELECT * FROM Files")
-    r = cur.fetchall()
+    try :
+        conn = sqlite3.connect(Manifest_location)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM Files")
+        r = cur.fetchall()
+    except :
+        print("The DB file was broken or Something Wrong. Please check your DB file")
     total_count = len(r)
     for i in range(total_count) :
         src.util.printProgress(i, total_count, 'Progress:', 'Complete', 1, 50)
