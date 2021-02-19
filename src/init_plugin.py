@@ -11,10 +11,10 @@ def iphone_information(manifest_location, info_location) :
         display_name = info["Display Name"]
         build_version = info["Build Version"]
         GUID = info["GUID"]
-        ICCID = info["ICCID"]
+        ICCID = info["ICCID"] if info.get('ICCID') != None else 'No Sim'
         IMEI = info["IMEI"]
         Last_Backup_Date = info["Last Backup Date"]
-        phone_number = info["Phone Number"]
+        phone_number = info["Phone Number"] if info.get('Phone Number') != None else 'No Phone Number'
         product_name = info["Product Name"]
         product_type = info["Product Type"]
         product_version = info["Product Version"]
