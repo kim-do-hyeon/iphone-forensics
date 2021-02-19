@@ -90,28 +90,39 @@ class MainWindow(QMainWindow, ui):
 
     def auto_path_select(self) :
         try :
-            try :
-                appdata_path = os.getenv('APPDATA')
-                backup_file_path = appdata_path + "\Apple Computer\MobileSync\Backup"
+            appdata_path = os.getenv('APPDATA')
+            log("Appdata Path > " + str(appdata_path))
+            backup_file_path = appdata_path + "\Apple Computer\MobileSync\Backup"
+
+            if os.path.islink(backup_file_path) == True:
+                backup_file_path = os.readlink(backup_file_path)[4:]
+
+            backup_file_list = os.listdir(backup_file_path)
+            backup_file_path = backup_file_path + "\\" + backup_file_list[0]
+            self.folder_path_line.setText(backup_file_path)
+            log("Auto Folder Path > " + str(backup_file_path))
+            self.folder_path_global(backup_file_path) # Global Variable Settings
+            
+            if backup_file_list == []:
+                appdata_path = os.getenv('USERPROFILE')
+                log("Appdata Path > " + str(appdata_path))
+                backup_file_path = appdata_path + "\Apple\MobileSync\Backup"
+
+                if os.path.islink(backup_file_path) == True:
+                    backup_file_path = os.readlink(backup_file_path)[4:]
+
                 backup_file_list = os.listdir(backup_file_path)
-                backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
-                self.folder_path_line.setText(backup_file_location)
-                self.folder_path_global(backup_file_location) # Global Variable Settings
-                log("Auto Folder Path > " + str(folder_path))
-            except :
-                try :
-                    appdata_path = os.getenv('USERPROFILE')
-                    backup_file_path = appdata_path + "\Apple\MobileSync\Backup"
-                    backup_file_list = os.listdir(backup_file_path)
-                    backup_file_location = str(backup_file_path) + "\\" + backup_file_list[0]
-                    self.folder_path_line.setText(backup_file_location)
-                    self.folder_path_global(backup_file_location) # Global Variable Settings
-                    log("Auto Folder Path > " + str(folder_path))
-                except :
-                    pass      
+                backup_file_path = backup_file_path + "\\" + backup_file_list[0]
+                self.folder_path_line.setText(backup_file_path)
+                log("Auto Folder Path > " + str(backup_file_path))
+                self.folder_path_global(backup_file_path) # Global Variable Settings
+
+                if backup_file_list == []:
+                    QMessageBox.warning(self, 'Error', 'The backup file could not be found. Does it exist in a different location?', QMessageBox.Ok, QMessageBox.Ok)
+                    return
         except :
             log("Auto Folder Path > FAIL")
-            QMessageBox.warning(self, 'Error', 'Backup Folder Not Found.\nVerify that the files are in that folder', QMessageBox.Ok, QMessageBox.Ok)
+            QMessageBox.warning(self, 'Error', 'The backup file could not be found. Does it exist in a different location?', QMessageBox.Ok, QMessageBox.Ok)
 
     def db_path_select(self) :
         try :
