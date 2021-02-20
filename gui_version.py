@@ -14,8 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import * 
 
 ui = uic.loadUiType('gui/main.ui')[0] # Call ui file
 
@@ -67,6 +66,9 @@ class MainWindow(QMainWindow, ui):
         self.simcard_btn.clicked.connect(self.simcard)
         self.application_btn.clicked.connect(self.application)
         self.tcc_btn.clicked.connect(self.tcc)
+
+        # Button - Exit
+        self.exit_btn.clicked.connect(self.exit)
 
         # Text Result
         self.txt_result.setText(defualt_message)
@@ -364,6 +366,10 @@ class MainWindow(QMainWindow, ui):
         except :
             log("Artifacts > App Permission (TCC) > Fail")
             QMessageBox.warning(self, 'Error', 'Please Select Database File!', QMessageBox.Ok, QMessageBox.Ok)
+
+    def exit(self):
+        log("EXIT")
+        self.close()
         
     def set_enabled(self, enabled):
         self.folder_select_btn.setEnabled(enabled)
