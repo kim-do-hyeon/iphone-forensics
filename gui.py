@@ -5,10 +5,10 @@ import sqlite3
 import shutil
 import datetime
 import src.util
-import gui.plugin
-import gui.auto_db
+import src.gui.plugin
+import src.gui.auto_db
 
-from gui.requirement_except import ExceptWindow
+from src.gui.requirement_except import ExceptWindow
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5 import uic
@@ -16,7 +16,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import * 
 
-ui = uic.loadUiType('gui/main.ui')[0] # Call ui file
+ui = uic.loadUiType('src/gui/main.ui')[0] # Call ui file
 
 def log(message): # LOG
             message = src.util.timestamp() + ' > ' + message
@@ -37,7 +37,7 @@ class MainWindow(QMainWindow, ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon('gui/icon.ico'))
+        self.setWindowIcon(QIcon('src/gui/icon.ico'))
 
         # File Management Buttons
         self.folder_select_btn.clicked.connect(self.folder_path_select)
@@ -247,7 +247,7 @@ class MainWindow(QMainWindow, ui):
 
         try :
             log("Auto Analyzing Start")
-            gui.auto_db.auto(self, extract_path)
+            src.gui.auto_db.auto(self, extract_path)
             log("Auto Analyzing End")
         except :
             log("Auto Analyzing Fail")
@@ -257,7 +257,7 @@ class MainWindow(QMainWindow, ui):
     def iphone_information(self) :
         self.progressBar.setValue(0)
         try :
-            gui.plugin.iphone_information(self, manifest_location, info_location)
+            src.gui.plugin.iphone_information(self, manifest_location, info_location)
             log("Information > iPhone Information > Success")
         except :
             log("Information > iPhone Information > Fail")
@@ -272,7 +272,7 @@ class MainWindow(QMainWindow, ui):
     def backup_information(self) :
         self.progressBar.setValue(0)
         try :
-            gui.plugin.backup_information(self, manifest_location, info_location)
+            src.gui.plugin.backup_information(self, manifest_location, info_location)
             log("Information > backup Information > Success")
         except :
             log("Information > iPhone Information > Fail")
@@ -288,7 +288,7 @@ class MainWindow(QMainWindow, ui):
     def sms(self):
         self.progressBar.setValue(0)
         try :
-            gui.plugin.sms(self, db_path)
+            src.gui.plugin.sms(self, db_path)
             log("Artifacts > SMS > Success")
         except :
             log("Artifacts > SMS > Fail")
@@ -297,7 +297,7 @@ class MainWindow(QMainWindow, ui):
     def addressbook(self):
         self.progressBar.setValue(0)
         try :
-            gui.plugin.addressbook(self, db_path)
+            src.gui.plugin.addressbook(self, db_path)
             log("Artifacts > AddressBook > Success")
         except :
             log("Artifacts > AddressBook > Fail")
@@ -305,7 +305,7 @@ class MainWindow(QMainWindow, ui):
     
     def wallet_pass(self):
         try :
-            gui.plugin.wallet_pass(self, db_path)
+            src.gui.plugin.wallet_pass(self, db_path)
             log("Artifacts > Wallet Pass > Success")
         except :
             log("Artifacts > Wallet Pass > Fail")
@@ -313,7 +313,7 @@ class MainWindow(QMainWindow, ui):
 
     def apple_accounts(self):
         try :
-            gui.plugin.apple_accounts(self, db_path)
+            src.gui.plugin.apple_accounts(self, db_path)
             log("Artifacts > Apple Accounts > Success")
         except :
             log("Artifacts > Apple Accounts > Fail")
@@ -321,7 +321,7 @@ class MainWindow(QMainWindow, ui):
 
     def calendar(self):
         try :
-            gui.plugin.calendar(self, db_path)
+            src.gui.plugin.calendar(self, db_path)
             log("Artifacts > Calendar > Success")
         except :
             log("Artifacts > Calendar > Fail")
@@ -329,7 +329,7 @@ class MainWindow(QMainWindow, ui):
 
     def bluetooth(self):
         try :
-            gui.plugin.bluetooth(self, db_path)
+            src.gui.plugin.bluetooth(self, db_path)
             log("Artifacts > Bluetooth > Success")
         except :
             log("Artifacts > Bluetooth > Fail")
@@ -337,7 +337,7 @@ class MainWindow(QMainWindow, ui):
 
     def bluetooth_all(self):
         try :
-            gui.plugin.bluetooth_all(self, db_path)
+            src.gui.plugin.bluetooth_all(self, db_path)
             log("Artifacts > Bluetooth All > Success")
         except :
             log("Artifacts > Bluetooth All > Fail")
@@ -345,7 +345,7 @@ class MainWindow(QMainWindow, ui):
 
     def simcard(self):
         try :
-            gui.plugin.simcard(self, db_path)
+            src.gui.plugin.simcard(self, db_path)
             log("Artifacts > SIM Card > Success")
         except :
             log("Artifacts > SIM Card > Fail")
@@ -353,7 +353,7 @@ class MainWindow(QMainWindow, ui):
     
     def application(self):
         try :
-            gui.plugin.application(self, db_path)
+            src.gui.plugin.application(self, db_path)
             log("Artifacts > Applicaton List > Success")
         except :
             log("Artifacts > Applicaton List > Fail")
@@ -361,7 +361,7 @@ class MainWindow(QMainWindow, ui):
     
     def tcc(self):
         try :
-            gui.plugin.tcc(self, db_path)
+            src.gui.plugin.tcc(self, db_path)
             log("Artifacts > App Permission (TCC) > Success")
         except :
             log("Artifacts > App Permission (TCC) > Fail")

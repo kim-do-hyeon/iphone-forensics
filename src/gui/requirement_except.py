@@ -5,7 +5,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-ui = uic.loadUiType('gui/requirement_except.ui')[0] # Call ui file
+ui = uic.loadUiType('src/gui/requirement_except.ui')[0] # Call ui file
 
 class ExceptWindow(QDialog, ui):
     except_manifest = QtCore.pyqtSignal(str)
@@ -13,7 +13,7 @@ class ExceptWindow(QDialog, ui):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon('gui/icon.ico'))
+        self.setWindowIcon(QIcon('src/gui/icon.ico'))
         self.show()
 
         # File Management Buttons
