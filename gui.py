@@ -26,13 +26,6 @@ log_name = str(datetime.datetime.now().strftime('%Y%m%d%H%M%S')) + '.txt'
 log_file = open(log_name, 'w', -1, 'utf-8')
 log("Start")
 
-defualt_message = "* iPhone Forensics Tool * \n\
-    \n Sourced By PENTAL \n \
-    \n First, Mount the location of the iPhone backup file.\n\
-    \n Second, press the analysis button to proceed with automatic analysis.\n\
-    \n Third, enter the database file and proceed with artifact analysis.\n\
-    \n If an error occurs, I would appreciate it if you post it on the issue with the log file."
-
 class MainWindow(QMainWindow, ui):
     def __init__(self):
         super().__init__()
@@ -70,9 +63,6 @@ class MainWindow(QMainWindow, ui):
         # Button - Exit
         self.exit_btn.clicked.connect(self.exit)
 
-        # Text Result
-        self.txt_result.setText(defualt_message)
-
         # ProgrssBar Setting
         self.progressBar.setValue(0)
 
@@ -81,6 +71,10 @@ class MainWindow(QMainWindow, ui):
         self.th_extract.evt_result_append.connect(self.th_extract_result_handler)
         self.th_extract.evt_result_bar_append.connect(self.th_extract_result_bar_handler)
         self.th_extract.evt_extract_finished.connect(self.th_extract_finish_handler)
+
+        # Notice
+        QMessageBox.information(self, 'Notice', "* iPhone Forensics Tool * \n \
+If an error occurs, I would appreciate it if you post it on the issue with the log file.")
 
     # Path Select 
     def folder_path_select(self) :
@@ -257,7 +251,8 @@ class MainWindow(QMainWindow, ui):
     def iphone_information(self) :
         self.progressBar.setValue(0)
         try :
-            src.gui.plugin.iphone_information(self, manifest_location, info_location)
+            import src.gui.basic_informatin
+            src.gui.basic_informatin.iphone_information(self, manifest_location, info_location)
             log("Information > iPhone Information > Success")
         except :
             log("Information > iPhone Information > Fail")
@@ -272,7 +267,8 @@ class MainWindow(QMainWindow, ui):
     def backup_information(self) :
         self.progressBar.setValue(0)
         try :
-            src.gui.plugin.backup_information(self, manifest_location, info_location)
+            import src.gui.basic_informatin
+            src.gui.basic_informatin.backup_information(self, manifest_location, info_location)
             log("Information > backup Information > Success")
         except :
             log("Information > iPhone Information > Fail")
