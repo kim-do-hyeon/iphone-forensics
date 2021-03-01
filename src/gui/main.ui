@@ -80,24 +80,11 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>430</x>
-      <y>100</y>
-      <width>751</width>
-      <height>391</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="txt_result">
-    <property name="geometry">
-     <rect>
       <x>150</x>
       <y>100</y>
-      <width>271</width>
+      <width>1031</width>
       <height>391</height>
      </rect>
-    </property>
-    <property name="readOnly">
-     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="database_label">
